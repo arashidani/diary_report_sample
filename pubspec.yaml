@@ -22,6 +22,7 @@ dependencies:
   intl:
   persistent_bottom_nav_bar_v2: ^4.2.8
   pie_chart: ^5.4.0
+  google_fonts: 6.1.0
 
 dev_dependencies:
   flutter_test:
