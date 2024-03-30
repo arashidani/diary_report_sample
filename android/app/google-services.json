@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137356413214",
+    "project_id": "diary-sample-egd",
+    "storage_bucket": "diary-sample-egd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137356413214:android:6e36d8d84cdc7b0708610f",
+        "android_client_info": {
+          "package_name": "com.example.diary_report_sample.diary_report_sample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7zFHP02wihHA4ZtwhaaFpdLBWtoKGMBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
