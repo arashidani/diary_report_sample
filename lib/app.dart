@@ -14,6 +14,7 @@ class AppState extends StatefulWidget {
 
 class _AppState extends State<AppState> {
   var themeMode = ThemeMode.dark;
+  final appBarTitles = ['HOME', '一覧', 'アカウント'];
   int _selectedIndex = 0;
 
   @override
@@ -43,14 +44,18 @@ class _AppState extends State<AppState> {
           textTheme: GoogleFonts.notoSansJpTextTheme(),
         ),
         home: Scaffold(
-          appBar: AppBar(title: const Text('HOME')),
+          appBar: AppBar(
+              title: Text(
+            appBarTitles[_selectedIndex],
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          )),
           body: pages[_selectedIndex],
           endDrawer: const SideDrawer(),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
             items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.list_alt_outlined), label: '一覧'),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: 'アカウント'),
