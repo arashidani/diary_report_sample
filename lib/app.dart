@@ -1,10 +1,7 @@
 import 'package:diary_report_sample/features/app/home_view.dart';
-import 'package:diary_report_sample/features/app/sample_view.dart';
 import 'package:diary_report_sample/features/app/table_view.dart';
 import 'package:diary_report_sample/router/router.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'features/app/side_drawer.dart';
 
