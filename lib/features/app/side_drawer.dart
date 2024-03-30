@@ -5,27 +5,25 @@ class SideDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text('John Doe'),
-            accountEmail: Text('john.doe@example.com'),
-          ),
-          ListTile(
-            title: Text('通知'),
-            onTap: () => {debugPrint("onTap")},
-          ),
-          ListTile(
-            title: Text('テーマ'),
-            onTap: () => {debugPrint("onTap")},
-          ),
-          ListTile(
-            title: Text('ログアウト'),
-            onTap: () => {debugPrint("onTap")},
-          ),
-        ],
-      ),
+    return ListView(
+      children: [
+        const UserAccountsDrawerHeader(
+          accountName: Text('John Doe'),
+          accountEmail: Text('john.doe@example.com'),
+        ),
+        ListTile(
+          title: Text('通知'),
+          onTap: () => {debugPrint("onTap")},
+        ),
+        ListTile(
+          title: Text('テーマ'),
+          onTap: () => {debugPrint("onTap")},
+        ),
+        ListTile(
+          title: Text('ログアウト'),
+          onTap: () => {debugPrint("onTap")},
+        ),
+      ],
     );
   }
 }

@@ -1,16 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TableView extends StatefulWidget {
-  const TableView({super.key, required this.title});
-
-  final String title;
+  const TableView({super.key});
 
   @override
   State<TableView> createState() => _TableViewState();
 }
 
 class _TableViewState extends State<TableView> {
+  String dropdownValue = getYearsList(10).first; // 今年を取得
+  String initMonth = DateTime.now().month.toString(); // 今月を取得
+  final month = <String>[
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12'
+  ];
   List<DiaryData> dataList = [
     // サンプルデータを生成してリストに追加
     DiaryData(DateTime(2024, 12, 11), 8.5, 1.0, 0.0, true),
@@ -47,91 +60,58 @@ class _TableViewState extends State<TableView> {
 
   @override
   Widget build(BuildContext context) {
-    String? isSelectedItem = 'aaa';
-    tenYearsAgo();
-
     final _deviceWidth = MediaQuery.of(context).size.width;
     final _deviceHeight = MediaQuery.of(context).size.height;
-    final appBer = MediaQuery.of(context).padding.top + kToolbarHeight;
+    final appBarHeight = MediaQuery.of(context).padding.top + kToolbarHeight;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
-        title: const Text("一覧画面"),
-      ),
       body: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              DropdownButton(
-                //4
-                items: const [
-                  //5
-                  DropdownMenuItem(
-                    child: Text('aaa'),
-                    value: 'aaa',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('bbb'),
-                    value: 'bbb',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('ccc'),
-                    value: 'ccc',
-                  ),
-                ],
-                //6
+              DropdownButton<String>(
+                items: getYearsList(10)
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
                 onChanged: (String? value) {
                   setState(() {
-                    isSelectedItem = value;
+                    dropdownValue = value!;
                   });
                 },
-                //7
-                value: isSelectedItem,
+                value: dropdownValue,
               ),
               DropdownButton(
-                //4
-                items: const [
-                  //5
-                  DropdownMenuItem(
-                    child: Text('aaa'),
-                    value: 'aaa',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('bbb'),
-                    value: 'bbb',
-                  ),
-                  DropdownMenuItem(
-                    child: Text('ccc'),
-                    value: 'ccc',
-                  ),
-                ],
-                //6
-                onChanged: (String? value) {
+                value: initMonth,
+                items: month
+                    .map((list) =>
+                        DropdownMenuItem(value: list, child: Text(list)))
+                    .toList(),
+                onChanged: (value) {
                   setState(() {
-                    isSelectedItem = value;
+                    initMonth = value!;
                   });
                 },
-                //7
-                value: isSelectedItem,
               ),
             ],
           ),
-          Container(
-            height: _deviceHeight - appBer,
-            padding: EdgeInsets.all(4),
+          SizedBox(
+            height: _deviceHeight - appBarHeight,
+            // padding: EdgeInsets.all(4),
             // 配列を元にリスト表示
             child: ListView.builder(
               itemCount: dataList.length,
               itemBuilder: (context, index) {
-                return Container(
+                return SizedBox(
                     height: 50,
                     //color: listItems[index]['color'],
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         SizedBox(
                           width: _deviceWidth * 0.25,
                           child: Row(
@@ -237,15 +217,12 @@ String weekDayToStr(int weekday) {
   return jpWeekday;
 }
 
-List<DropdownMenuItem> tenYearsAgo() {
-  final List<DropdownMenuItem> yearList = [];
-  final thisYear = new DateTime.now().year;
-  for (int i = 0; i < 10; i++) {
-    yearList.add(DropdownMenuItem(
-      value: "&{thisYear - i}",
-      child: Text("${thisYear - i}"),
-    ));
+// 直近n年を取得するメソッド
+List<String> getYearsList(int years) {
+  final List<String> yearsList = [];
+  final thisYear = DateTime.now().year;
+  for (int i = 0; i < years; i++) {
+    yearsList.add((thisYear - i).toString());
   }
-  print(yearList);
-  return yearList;
+  return yearsList;
 }

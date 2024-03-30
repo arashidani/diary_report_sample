@@ -123,6 +123,5 @@ List<String> getYearsList() {
   for (int i = 0; i < 10; i++) {
     yearsList.add((thisYear - i).toString());
   }
-  print(yearsList);
   return yearsList;
 }

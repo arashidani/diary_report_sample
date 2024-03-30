@@ -33,8 +33,8 @@ class _AppState extends State<AppState> {
     // 表示する画面のリストを作成
     final pages = [
       const HomeView(),
-      const TableView(title: "一覧画面"),
-      SideDrawer(),
+      const TableView(),
+      const SideDrawer(),
     ];
     return MaterialApp(
         // themeMode: themeMode,
