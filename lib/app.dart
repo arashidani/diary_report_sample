@@ -2,6 +2,7 @@ import 'package:diary_report_sample/features/app/home_view.dart';
 import 'package:diary_report_sample/features/app/table_view.dart';
 import 'package:diary_report_sample/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'features/app/side_drawer.dart';
 
@@ -38,6 +39,9 @@ class _AppState extends State<AppState> {
         // themeMode: themeMode,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
+        theme: ThemeData(
+          textTheme: GoogleFonts.notoSansJpTextTheme(),
+        ),
         home: Scaffold(
           appBar: AppBar(title: const Text('HOME')),
           body: pages[_selectedIndex],
