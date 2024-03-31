@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class TableView extends StatefulWidget {
   const TableView({super.key});
@@ -10,6 +11,7 @@ class TableView extends StatefulWidget {
 class _TableViewState extends State<TableView> {
   String dropdownValue = getYearsList(10).first; // 今年を取得
   String initMonth = DateTime.now().month.toString(); // 今月を取得
+  late DateTime _selectedDate;
   final month = <String>[
     '1',
     '2',
@@ -272,29 +274,21 @@ void _showModal(BuildContext context, double _deviceHeight) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('日付を選択'),
-                SizedBox(
-                  width: 250,
-                  child: DropdownButton(
-                    isExpanded: true,
-                    //4
-                    items: const [
-                      //5
-                      DropdownMenuItem(
-                        child: Text('aaa'),
-                        value: 'aaa',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('bbb'),
-                        value: 'bbb',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('ccc'),
-                        value: 'ccc',
-                      ),
-                    ],
-                    onChanged: (String? value) {},
-                  ),
-                ),
+                TextButton(
+                    onPressed: () {
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2010, 1, 1),
+                          maxTime: DateTime(2040, 12, 31), onChanged: (date) {
+                        print('change $date');
+                      }, onConfirm: (date) {
+                        print('confirm $date');
+                      }, currentTime: DateTime.now(), locale: LocaleType.jp);
+                    },
+                    child: Text(
+                      '日付を選択',
+                      style: TextStyle(color: Colors.blue),
+                    )),
                 Text('案件を選択'),
                 SizedBox(
                   width: 250,
