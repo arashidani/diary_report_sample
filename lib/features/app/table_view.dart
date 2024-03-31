@@ -1,3 +1,4 @@
+import 'package:diary_report_sample/features/app/show_modal_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
@@ -11,7 +12,6 @@ class TableView extends StatefulWidget {
 class _TableViewState extends State<TableView> {
   String dropdownValue = getYearsList(10).first; // 今年を取得
   String initMonth = DateTime.now().month.toString(); // 今月を取得
-  late DateTime _selectedDate;
   final month = <String>[
     '1',
     '2',
@@ -236,152 +236,8 @@ void _showModal(BuildContext context, double _deviceHeight) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    //ackgroundColor: Colors.transparent,
     builder: (BuildContext context) {
-      var width;
-      return Container(
-        height: _deviceHeight,
-        child: SingleChildScrollView(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.clear,
-                      size: 30,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Text(
-                    '日報追加',
-                    style: TextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(flex: 1, child: Container()),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('日付を選択'),
-                TextButton(
-                    onPressed: () {
-                      DatePicker.showDatePicker(context,
-                          showTitleActions: true,
-                          minTime: DateTime(2010, 1, 1),
-                          maxTime: DateTime(2040, 12, 31), onChanged: (date) {
-                        print('change $date');
-                      }, onConfirm: (date) {
-                        print('confirm $date');
-                      }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                    },
-                    child: Text(
-                      '日付を選択',
-                      style: TextStyle(color: Colors.blue),
-                    )),
-                Text('案件を選択'),
-                SizedBox(
-                  width: 250,
-                  child: DropdownButton(
-                    isExpanded: true,
-                    //4
-                    items: const [
-                      //5
-                      DropdownMenuItem(
-                        child: Text('aaa'),
-                        value: 'aaa',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('bbb'),
-                        value: 'bbb',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('ccc'),
-                        value: 'ccc',
-                      ),
-                    ],
-                    onChanged: (String? value) {},
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('工数'),
-                SizedBox(
-                  width: 50,
-                ),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: TextFormField(
-                    decoration: InputDecoration(),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('残業'),
-                SizedBox(
-                  width: 50,
-                ),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: TextFormField(
-                    decoration: InputDecoration(),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('深夜'),
-                SizedBox(
-                  width: 50,
-                ),
-                SizedBox(
-                  width: 100,
-                  height: 50,
-                  child: TextFormField(
-                    decoration: InputDecoration(),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: _deviceHeight / 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('送信する'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('続けて入力'),
-                ),
-              ],
-            ),
-          ],
-        )),
-      );
+      return ShowModalView(deviceHeight: _deviceHeight);
     },
   );
 }
