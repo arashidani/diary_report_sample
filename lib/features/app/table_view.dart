@@ -245,14 +245,27 @@ void _showModal(BuildContext context, double _deviceHeight) {
           children: <Widget>[
             Row(
               children: [
-                Expanded(flex: 1, child: Container()),
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.clear,
+                      size: 30,
+                    ),
+                  ),
+                ),
                 Expanded(
                   flex: 8,
                   child: Text(
                     '日報追加',
+                    style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
                 ),
+                Expanded(flex: 1, child: Container()),
               ],
             ),
             Column(
