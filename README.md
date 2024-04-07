@@ -1,6 +1,6 @@
-# diary_report_sample
+# 日報管理アプリサンプル
 
-A new Flutter project.
+日報管理アプリのサンプルです
 
 ## Getting Started
 
