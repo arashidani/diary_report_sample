@@ -33,182 +33,179 @@ class ShowModalState extends State<ShowModalView> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => primaryFocus?.unfocus(),
-      child: SizedBox(
-        height: widget.deviceHeight,
-        child: SingleChildScrollView(
-            child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.clear,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: Text(
-                      '日報追加',
-                      style: TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Expanded(flex: 1, child: Container()),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('日付を選択'),
-                  TextButton(
-                      onPressed: () {
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime(2010, 1, 1),
-                            maxTime: DateTime(2040, 12, 31),
-                            onChanged: (date) {}, onConfirm: (date) {
-                          setState(() {
-                            _selectedDate = date;
-                            print(_selectedDate);
-                          });
-                        }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                      },
-                      child: Text(
-                        formatDateString(_selectedDate!),
-                        style: TextStyle(color: Colors.blue),
-                      )),
-                  const Text('案件を選択'),
-                  SizedBox(
-                    width: 250,
-                    child: DropdownButton(
-                      isExpanded: true,
-                      //4
-                      items: const [
-                        //5
-                        DropdownMenuItem(
-                          child: Text('aaa'),
-                          value: 'aaa',
-                        ),
-                        DropdownMenuItem(
-                          child: Text('bbb'),
-                          value: 'bbb',
-                        ),
-                        DropdownMenuItem(
-                          child: Text('ccc'),
-                          value: 'ccc',
-                        ),
-                      ],
-                      onChanged: (String? value) {},
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('工数'),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  SizedBox(
-                    width: 100,
-                    height: 50,
-                    child: TextFormField(
-                      controller: _businessController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,3}'))
-                      ],
-                      decoration: InputDecoration(),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('残業'),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  SizedBox(
-                    width: 100,
-                    height: 50,
-                    child: TextFormField(
-                      controller: _lateController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,3}'))
-                      ],
-                      decoration: InputDecoration(),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('深夜'),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  SizedBox(
-                    width: 100,
-                    height: 50,
-                    child: TextFormField(
-                      controller: _overController,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,3}'))
-                      ],
-                      decoration: InputDecoration(),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: widget.deviceHeight / 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
+    return SizedBox(
+      height: widget.deviceHeight,
+      child: SingleChildScrollView(
+          child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      print(zeroSuppress(_businessController.text));
-                      print(zeroSuppress(_lateController.text));
-                      print(zeroSuppress(_overController.text));
                     },
-                    child: const Text('送信する'),
+                    icon: Icon(
+                      Icons.clear,
+                      size: 30,
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('続けて入力'),
+                ),
+                Expanded(
+                  flex: 8,
+                  child: Text(
+                    '日報追加',
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
-            ],
-          ),
-        )),
-      ),
+                ),
+                Expanded(flex: 1, child: Container()),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('日付を選択'),
+                TextButton(
+                    onPressed: () {
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2010, 1, 1),
+                          maxTime: DateTime(2040, 12, 31),
+                          onChanged: (date) {}, onConfirm: (date) {
+                        setState(() {
+                          _selectedDate = date;
+                          print(_selectedDate);
+                        });
+                      }, currentTime: DateTime.now(), locale: LocaleType.jp);
+                    },
+                    child: Text(
+                      formatDateString(_selectedDate!),
+                      style: TextStyle(color: Colors.blue),
+                    )),
+                const Text('案件を選択'),
+                SizedBox(
+                  width: 250,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    //4
+                    items: const [
+                      //5
+                      DropdownMenuItem(
+                        child: Text('aaa'),
+                        value: 'aaa',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('bbb'),
+                        value: 'bbb',
+                      ),
+                      DropdownMenuItem(
+                        child: Text('ccc'),
+                        value: 'ccc',
+                      ),
+                    ],
+                    onChanged: (String? value) {},
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('工数'),
+                SizedBox(
+                  width: 50,
+                ),
+                SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: TextFormField(
+                    controller: _businessController,
+                    textInputAction: TextInputAction.next,
+                    //keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,3}'))
+                    ],
+                    decoration: InputDecoration(),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('残業'),
+                SizedBox(
+                  width: 50,
+                ),
+                SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: TextFormField(
+                    controller: _lateController,
+                    textInputAction: TextInputAction.next,
+                    //keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,3}'))
+                    ],
+                    decoration: InputDecoration(),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('深夜'),
+                SizedBox(
+                  width: 50,
+                ),
+                SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: TextFormField(
+                    controller: _overController,
+                    textInputAction: TextInputAction.next,
+                    //keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,3}'))
+                    ],
+                    decoration: InputDecoration(),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: widget.deviceHeight / 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    print(zeroSuppress(_businessController.text));
+                    print(zeroSuppress(_lateController.text));
+                    print(zeroSuppress(_overController.text));
+                  },
+                  child: const Text('送信する'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('続けて入力'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
