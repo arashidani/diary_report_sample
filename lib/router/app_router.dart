@@ -1,5 +1,6 @@
 import 'package:diary_report_sample/features/app/details_page.dart';
 import 'package:diary_report_sample/features/app/feed_page.dart';
+import 'package:diary_report_sample/features/app/home_view.dart';
 import 'package:diary_report_sample/features/app/side_drawer.dart';
 import 'package:diary_report_sample/features/app/table_view.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ final router = GoRouter(
           GoRoute(
             path: '/account',
             builder: (context, state) {
-              return const SideDrawer();
+              return const HomeView();
             },
           ),
         ])
