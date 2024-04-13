@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
+import 'package:flutter_charts/flutter_charts.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -100,20 +100,58 @@ class _HomeViewState extends State<HomeView> {
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
-              PieChart(
-                dataMap: dateMap,
-                chartLegendSpacing: 10,
-                chartRadius: MediaQuery.of(context).size.width / 1.5,
-                legendOptions: LegendOptions(
-                  legendPosition: LegendPosition.bottom,
-                ),
-              ),
+              chartToRun()
             ],
           ),
         ),
       ],
     );
   }
+}
+
+Widget chartToRun() {
+  LabelLayoutStrategy? xContainerLabelLayoutStrategy;
+  ChartData chartData;
+  ChartOptions chartOptions = const ChartOptions();
+  // Example shows an explicit use of the DefaultIterativeLabelLayoutStrategy.
+  // The xContainerLabelLayoutStrategy, if set to null or not set at all,
+  //   defaults to DefaultIterativeLabelLayoutStrategy
+  // Clients can also create their own LayoutStrategy.
+
+  xContainerLabelLayoutStrategy = DefaultIterativeLabelLayoutStrategy(
+    options: chartOptions,
+  );
+  chartData = ChartData(
+    dataRows: const [
+      [10.0, 20.0, 5.0, 30.0, 5.0, 20.0],
+      [30.0, 60.0, 16.0, 10.0, 12.0, 30.0],
+      [25.0, 40.0, 20.0, 80.0, 12.0, 90.0],
+    ],
+    xUserLabels: const ['11月', '12月', '1月', '2月', '3月', '4月'],
+    dataRowsLegends: const [
+      '工数合計',
+      '残業合計',
+      '深夜合計',
+    ],
+    chartOptions: chartOptions,
+    dataRowsColors: [Color(0xFFA3FFD6), Color(0xFF7BC9FF), Color(0xFF8576FF)],
+  );
+  // chartData.dataRowsDefaultColors(); // if not set, called in constructor
+  var verticalBarChartContainer = VerticalBarChartTopContainer(
+    chartData: chartData,
+    xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
+  );
+
+  var verticalBarChart = VerticalBarChart(
+    painter: VerticalBarChartPainter(
+      verticalBarChartContainer: verticalBarChartContainer,
+    ),
+  );
+  return Container(
+    height: 370,
+    width: 390,
+    child: verticalBarChart,
+  );
 }
 
 List<String> getYearsList() {
