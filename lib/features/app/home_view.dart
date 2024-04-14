@@ -22,88 +22,94 @@ class _HomeViewState extends State<HomeView> {
       '深夜合計': _late_night_sum
     };
     final sum = _man_month_sum + _overtime_work_sum + _late_night_sum;
-    return Column(
+
+    return PageView(
       children: [
-        ExpansionTile(
-          title: Text('総工数:160'),
-          children: <Widget>[
-            DropdownButton<String>(
-              items:
-                  getYearsList().map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                setState(() {
-                  dropdownValue = value!;
-                });
-              },
-              value: dropdownValue,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ListTile(
-                    title: Text('予定出勤時間:0'),
-                  ),
+        Column(
+          children: [
+            ExpansionTile(
+              title: Text('総工数:160'),
+              children: <Widget>[
+                DropdownButton<String>(
+                  items: getYearsList()
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                  value: dropdownValue,
                 ),
-                Expanded(
-                  child: ListTile(
-                    title: Text('工数合計:140'),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                        title: Text('予定出勤時間:0'),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                        title: Text('工数合計:140'),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                        title: Text('残業工数合計:20'),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                        title: Text('深夜工数合計:20'),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ListTile(
-                    title: Text('残業工数合計:20'),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('総工数/下限：$sum/140',
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
                   ),
-                ),
-                Expanded(
-                  child: ListTile(
-                    title: Text('深夜工数合計:20'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('工数合計：$_man_month_sum',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("残業合計：$_overtime_work_sum",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('深夜合計：$_late_night_sum',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
+                  chartToRun()
+                ],
+              ),
             ),
           ],
         ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('総工数/下限：$sum/140',
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('工数合計：$_man_month_sum',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("残業合計：$_overtime_work_sum",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('深夜合計：$_late_night_sum',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              chartToRun()
-            ],
-          ),
-        ),
+        Text('Page 2'),
       ],
     );
   }
@@ -113,17 +119,13 @@ Widget chartToRun() {
   LabelLayoutStrategy? xContainerLabelLayoutStrategy;
   ChartData chartData;
   ChartOptions chartOptions = const ChartOptions();
-  // Example shows an explicit use of the DefaultIterativeLabelLayoutStrategy.
-  // The xContainerLabelLayoutStrategy, if set to null or not set at all,
-  //   defaults to DefaultIterativeLabelLayoutStrategy
-  // Clients can also create their own LayoutStrategy.
 
   xContainerLabelLayoutStrategy = DefaultIterativeLabelLayoutStrategy(
     options: chartOptions,
   );
   chartData = ChartData(
     dataRows: const [
-      [10.0, 20.0, 5.0, 30.0, 5.0, 20.0],
+      [130.0, 20.0, 5.0, 30.0, 5.0, 20.0],
       [30.0, 60.0, 16.0, 10.0, 12.0, 30.0],
       [25.0, 40.0, 20.0, 80.0, 12.0, 90.0],
     ],
