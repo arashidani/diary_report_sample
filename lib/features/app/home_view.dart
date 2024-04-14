@@ -24,6 +24,9 @@ class _HomeViewState extends State<HomeView> {
     final sum = _man_month_sum + _overtime_work_sum + _late_night_sum;
 
     return PageView(
+      onPageChanged: (int index) {
+        //todo　データを取得するメソッドをここに記載する
+      },
       children: [
         Column(
           children: [
