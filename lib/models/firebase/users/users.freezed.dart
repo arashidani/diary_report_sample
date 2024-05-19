@@ -28,6 +28,7 @@ mixin _$Users {
   String get email => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   String get divId => throw _privateConstructorUsedError;
+  List<String> get projects => throw _privateConstructorUsedError;
   @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)
@@ -52,6 +53,7 @@ abstract class $UsersCopyWith<$Res> {
       String email,
       String role,
       String divId,
+      List<String> projects,
       @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
       DateTime? createdAt,
       @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)
@@ -79,6 +81,7 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
     Object? email = null,
     Object? role = null,
     Object? divId = null,
+    Object? projects = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -115,6 +118,10 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
           ? _value.divId
           : divId // ignore: cast_nullable_to_non_nullable
               as String,
+      projects: null == projects
+          ? _value.projects
+          : projects // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$UsersImplCopyWith<$Res> implements $UsersCopyWith<$Res> {
       String email,
       String role,
       String divId,
+      List<String> projects,
       @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
       DateTime? createdAt,
       @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)
@@ -168,6 +176,7 @@ class __$$UsersImplCopyWithImpl<$Res>
     Object? email = null,
     Object? role = null,
     Object? divId = null,
+    Object? projects = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -204,6 +213,10 @@ class __$$UsersImplCopyWithImpl<$Res>
           ? _value.divId
           : divId // ignore: cast_nullable_to_non_nullable
               as String,
+      projects: null == projects
+          ? _value._projects
+          : projects // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -228,10 +241,12 @@ class _$UsersImpl implements _Users {
       this.email = '',
       this.role = '',
       this.divId = '',
+      final List<String> projects = const [],
       @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
       this.createdAt,
       @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)
-      this.updatedAt});
+      this.updatedAt})
+      : _projects = projects;
 
   factory _$UsersImpl.fromJson(Map<String, dynamic> json) =>
       _$$UsersImplFromJson(json);
@@ -260,6 +275,15 @@ class _$UsersImpl implements _Users {
   @override
   @JsonKey()
   final String divId;
+  final List<String> _projects;
+  @override
+  @JsonKey()
+  List<String> get projects {
+    if (_projects is EqualUnmodifiableListView) return _projects;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_projects);
+  }
+
   @override
   @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
   final DateTime? createdAt;
@@ -269,7 +293,7 @@ class _$UsersImpl implements _Users {
 
   @override
   String toString() {
-    return 'Users(docId: $docId, firstName: $firstName, lastName: $lastName, name: $name, employeeNo: $employeeNo, email: $email, role: $role, divId: $divId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Users(docId: $docId, firstName: $firstName, lastName: $lastName, name: $name, employeeNo: $employeeNo, email: $email, role: $role, divId: $divId, projects: $projects, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -288,6 +312,7 @@ class _$UsersImpl implements _Users {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.divId, divId) || other.divId == divId) &&
+            const DeepCollectionEquality().equals(other._projects, _projects) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -296,8 +321,19 @@ class _$UsersImpl implements _Users {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, docId, firstName, lastName, name,
-      employeeNo, email, role, divId, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      docId,
+      firstName,
+      lastName,
+      name,
+      employeeNo,
+      email,
+      role,
+      divId,
+      const DeepCollectionEquality().hash(_projects),
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -323,6 +359,7 @@ abstract class _Users implements Users {
       final String email,
       final String role,
       final String divId,
+      final List<String> projects,
       @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
       final DateTime? createdAt,
       @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)
@@ -346,6 +383,8 @@ abstract class _Users implements Users {
   String get role;
   @override
   String get divId;
+  @override
+  List<String> get projects;
   @override
   @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
   DateTime? get createdAt;

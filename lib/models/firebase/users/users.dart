@@ -17,6 +17,7 @@ class Users with _$Users {
     @Default('') String email,
     @Default('') String role,
     @Default('') String divId,
+    @Default([]) List<String> projects,
     @JsonKey(name: 'createdAt', fromJson: TimestampConverter.fromJsonNullable)
     DateTime? createdAt,
     @JsonKey(name: 'updatedAt', fromJson: TimestampConverter.fromJsonNullable)

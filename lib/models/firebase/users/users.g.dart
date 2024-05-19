@@ -15,6 +15,10 @@ _$UsersImpl _$$UsersImplFromJson(Map<String, dynamic> json) => _$UsersImpl(
       email: json['email'] as String? ?? '',
       role: json['role'] as String? ?? '',
       divId: json['divId'] as String? ?? '',
+      projects: (json['projects'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       createdAt:
           TimestampConverter.fromJsonNullable(json['createdAt'] as Timestamp?),
       updatedAt:
@@ -31,6 +35,7 @@ Map<String, dynamic> _$$UsersImplToJson(_$UsersImpl instance) =>
       'email': instance.email,
       'role': instance.role,
       'divId': instance.divId,
+      'projects': instance.projects,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };
