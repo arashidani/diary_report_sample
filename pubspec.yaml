@@ -24,6 +24,8 @@ dependencies:
   google_fonts: 6.1.0
   flutter_datetime_picker_plus: ^2.1.0
   flutter_charts: ^0.5.2
+  firebase_auth: ^4.19.5
+  fluttertoast: ^8.2.5
 
 dev_dependencies:
   flutter_test:
