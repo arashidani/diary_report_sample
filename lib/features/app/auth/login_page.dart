@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts/flutter_charts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String newUserName = '';
   String newUserEmail = '';
   String newUserPassword = '';
   String infoText = '';
@@ -26,6 +29,13 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // nameアドレスを入力するテキストフィールドを作成する
+            TextField(
+              decoration: InputDecoration(labelText: "name"),
+              onChanged: (String value) => setState(() {
+                newUserName = value;
+              }),
+            ),
             // Emailアドレスを入力するテキストフィールドを作成する
             TextField(
               decoration: InputDecoration(labelText: "Email"),
@@ -58,6 +68,14 @@ class _LoginPageState extends State<LoginPage> {
                   print(newUserEmail);
 
                   final User user = result.user!;
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user.uid)
+                      .set({
+                    'name': newUserName, // 任意のユーザ情報
+                    'email': user.email, // 任意のユーザ情報
+                  });
+
                   setState(() {
                     infoText = "ユーザー登録を完了しました。登録したメールアドレスは${user.email}です";
                   });
@@ -97,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
 
                   final User user = result.user!;
+                  context.go("/account/info");
                   setState(() {
                     infoText = "ログインに成功しました。ログインメールアドレスは${user.email}です";
                   });

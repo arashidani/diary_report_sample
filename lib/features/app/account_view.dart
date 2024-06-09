@@ -1,16 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
-import 'login_page.dart';
+import 'auth/login_page.dart';
 
-class SideDrawer extends StatefulWidget {
-  const SideDrawer({Key? key}) : super(key: key);
+class AccountView extends StatefulWidget {
+  const AccountView({Key? key}) : super(key: key);
   @override
-  State<SideDrawer> createState() => _SideDrawerState();
+  State<AccountView> createState() => _AccountState();
 }
 
-class _SideDrawerState extends State<SideDrawer> {
+class _AccountState extends State<AccountView> {
   User? loginuser;
   String displayname = '';
   String email = '';
@@ -41,7 +42,6 @@ class _SideDrawerState extends State<SideDrawer> {
           title: Text('テーマ'),
           onTap: () => {debugPrint("onTap")},
         ),
-        LoginPage(),
         ListTile(
           title: Text('ログアウト'),
           onTap: () async {
@@ -52,6 +52,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   msg: 'ログアウトしました',
                   fontSize: 18,
                 );
+                context.go('/account/auth');
               });
             } catch (e) {
               setState(() {
