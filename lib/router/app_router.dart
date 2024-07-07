@@ -29,7 +29,7 @@ final router = GoRouter(
           routes: <RouteBase>[
             GoRoute(
               path: '/home',
-              builder: (context, state) => const HomeView(),
+              builder: (context, state) => HomeView(),
               routes: <RouteBase>[
                 GoRoute(
                   path: 'details',

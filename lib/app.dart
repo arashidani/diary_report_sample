@@ -78,7 +78,7 @@ import 'models/firebase/users/users.dart';
 final selectedIndexProvider = StateProvider<int>((ref) => 0);
 // 表示する画面のリストを作成
 final pages = [
-  const HomeView(),
+  HomeView(),
   const TableView(),
   const AccountView(),
 ];
