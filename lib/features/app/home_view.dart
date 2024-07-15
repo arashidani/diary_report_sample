@@ -16,13 +16,14 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  final now = DateTime.now();
   double _total_man_month = 0.0;
   double _businessSum = 0.0;
   double _overtimeSum = 0.0;
   double _lateNightSum = 0.0;
   List<double> _chartSum = [];
   List<MonthlyReports> _monthly_reports = [];
-
+  List<double> _current_month_reports = [];
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(currentUserDataProvider);
@@ -33,6 +34,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           body: PageView(
             onPageChanged: (int index) async {
               var monthly_reports = await fetchMonthlyReports();
+              var current_month_reports = await fetchReports();
               // fetchReports();
               // var man_month = calculateSums(monthly_reports);
               setState(() {
@@ -41,7 +43,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 // _overtimeSum = man_month[2];
                 // _lateNightSum = man_month[3];
                 // _chartSum = man_month;
+
                 _monthly_reports = monthly_reports;
+                _current_month_reports = current_month_reports;
               });
             },
             children: [
@@ -109,7 +113,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                         ),
                         if (_monthly_reports.isNotEmpty)
-                          chartToRun(_chartSum, _monthly_reports)
+                          chartToRun(_chartSum, _monthly_reports,
+                              _current_month_reports)
                       ],
                     ),
                   ),
@@ -126,34 +131,59 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   Future<List<MonthlyReports>> fetchMonthlyReports() async {
+    // print(now);
+    // print(now.month);
+    // print(now.month - 1);
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc("2Otf6iQfXlS54ZtTT5Mi")
         .collection('monthly_Reports') // 必要に応じて適切なサブコレクションに変更
-        .orderBy('initialDate')
-        .endAt([Timestamp.fromDate(DateTime(2024, 5, 1, 0, 0))])
+        .orderBy('initialDate', descending: true)
+        .startAfter(
+            [Timestamp.fromDate(DateTime(now.year, now.month, 2, 0, 0))])
         .limit(5)
         .get();
     final docs = snapshot.docs;
     final list = docs
         .map((doc) => MonthlyReports.fromFirestore(doc.data(), doc.id))
         .toList();
+    // for (var l in list) {
+    //   print(l.initialDate);
+    // }
     return list;
   }
 
-  Future<List<Reports>> fetchReports() async {
+  Future<List<double>> fetchReports() async {
+    double total_current_month_business = 0;
+    double total_current_month_late = 0;
+    double total_current_month_over = 0;
+    List<double> total_current_month_reports = [];
+
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc("2Otf6iQfXlS54ZtTT5Mi")
         .collection('reports') // 必要に応じて適切なサブコレクションに変更
         .orderBy('date')
-        .startAt([Timestamp.fromDate(DateTime(2024, 5, 9, 0, 0))])
+        .startAt([Timestamp.fromDate(DateTime(now.year, 7, 1, 0, 0))])
         .limit(31)
         .get();
     final docs = snapshot.docs;
     final list =
         docs.map((doc) => Reports.fromFirestore(doc.data(), doc.id)).toList();
-    return list;
+
+    for (var reports in list) {
+      for (var projects in reports.projects) {
+        total_current_month_business += projects.business;
+        total_current_month_late += projects.late;
+        total_current_month_over += projects.over;
+      }
+    }
+    total_current_month_reports = [
+      total_current_month_business,
+      total_current_month_late,
+      total_current_month_over
+    ];
+    return total_current_month_reports;
   }
 
 //   List<double> calculateSums(List<MonthlyReports> reports) {
@@ -176,12 +206,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
 // }
 
   Widget chartToRun(
-      List<double> chartSum, List<MonthlyReports> _monthly_reports) {
+      List<double> chartSum,
+      List<MonthlyReports> _monthly_reports,
+      List<double> current_month_reports) {
     if (chartSum.length < 4) {
       chartSum = [0.0, 0.0, 0.0, 0.0];
     }
-    // print(_monthly_reports);
-    // print(_monthly_reports[0].totalBusiness);
+    final now = getPastSixMonths();
 
     LabelLayoutStrategy? xContainerLabelLayoutStrategy;
     ChartData chartData;
@@ -193,31 +224,38 @@ class _HomeViewState extends ConsumerState<HomeView> {
     chartData = ChartData(
       dataRows: [
         [
-          _monthly_reports[0].totalBusiness,
-          _monthly_reports[1].totalBusiness,
-          _monthly_reports[2].totalBusiness,
-          _monthly_reports[3].totalBusiness,
           _monthly_reports[4].totalBusiness,
-          chartSum[1]
+          _monthly_reports[3].totalBusiness,
+          _monthly_reports[2].totalBusiness,
+          _monthly_reports[1].totalBusiness,
+          _monthly_reports[0].totalBusiness,
+          current_month_reports[0]
         ],
         [
-          _monthly_reports[0].totalOver,
-          _monthly_reports[1].totalOver,
-          _monthly_reports[2].totalOver,
-          _monthly_reports[3].totalOver,
           _monthly_reports[4].totalOver,
-          chartSum[2]
+          _monthly_reports[3].totalOver,
+          _monthly_reports[2].totalOver,
+          _monthly_reports[1].totalOver,
+          _monthly_reports[0].totalOver,
+          current_month_reports[1]
         ],
         [
-          _monthly_reports[0].totalLate,
-          _monthly_reports[1].totalLate,
-          _monthly_reports[2].totalLate,
-          _monthly_reports[3].totalLate,
           _monthly_reports[4].totalLate,
-          chartSum[3]
+          _monthly_reports[3].totalLate,
+          _monthly_reports[2].totalLate,
+          _monthly_reports[1].totalLate,
+          _monthly_reports[0].totalLate,
+          current_month_reports[2]
         ],
       ],
-      xUserLabels: const ['11月', '12月', '1月', '2月', '3月', '4月'],
+      xUserLabels: [
+        '${now[5]}月',
+        '${now[4]}月',
+        '${now[3]}月',
+        '${now[2]}月',
+        '${now[1]}月',
+        '${now[0]}月'
+      ],
       dataRowsLegends: const [
         '工数合計',
         '残業合計',
@@ -252,5 +290,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
       yearsList.add((thisYear - i).toString());
     }
     return yearsList;
+  }
+
+  List<int> getPastSixMonths() {
+    List<int> months = [];
+    DateTime now = DateTime.now();
+
+    for (int i = 0; i < 6; i++) {
+      DateTime pastMonth = DateTime(now.year, now.month - i, now.day);
+      months.add(pastMonth.month);
+    }
+
+    return months;
   }
 }
