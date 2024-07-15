@@ -108,7 +108,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                         ),
-                        chartToRun(_chartSum, _monthly_reports)
+                        if (_monthly_reports.isNotEmpty)
+                          chartToRun(_chartSum, _monthly_reports)
                       ],
                     ),
                   ),
@@ -179,8 +180,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
     if (chartSum.length < 4) {
       chartSum = [0.0, 0.0, 0.0, 0.0];
     }
-    print(_monthly_reports);
-    print(_monthly_reports[0].totalBusiness);
+    // print(_monthly_reports);
+    // print(_monthly_reports[0].totalBusiness);
 
     LabelLayoutStrategy? xContainerLabelLayoutStrategy;
     ChartData chartData;
