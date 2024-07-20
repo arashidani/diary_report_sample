@@ -23,7 +23,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   double _lateNightSum = 0.0;
   List<double> _chartSum = [];
   List<MonthlyReports> _monthly_reports = [];
-  List<double> _current_month_reports = [];
+  List<double> _current_month_reports = [0, 0, 0];
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(currentUserDataProvider);
@@ -50,74 +50,36 @@ class _HomeViewState extends ConsumerState<HomeView> {
             },
             children: [
               Column(
-                children: [
-                  ExpansionTile(
-                    title: Text('総工数:160'),
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ListTile(
-                              title: Text('予定出勤時間:0'),
-                            ),
-                          ),
-                          Expanded(
-                            child: ListTile(
-                              title: Text('工数合計:140'),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ListTile(
-                              title: Text('残業工数合計:$_overtimeSum'),
-                            ),
-                          ),
-                          Expanded(
-                            child: ListTile(
-                              title: Text('深夜工数合計:$_lateNightSum'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        '総工数/下限：${_current_month_reports.reduce((a, b) => a + b)}/140',
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
                   ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('総工数/下限：$_total_man_month/140',
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('工数合計：$_businessSum',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("残業合計：$_overtimeSum",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('深夜合計：$_lateNightSum',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                        ),
-                        if (_monthly_reports.isNotEmpty)
-                          chartToRun(_chartSum, _monthly_reports,
-                              _current_month_reports)
-                      ],
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('工数合計：${_current_month_reports[0]}',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('残業合計：${_current_month_reports[1]}',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('深夜合計：${_current_month_reports[2]}',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
+                  if (_monthly_reports.isNotEmpty)
+                    chartToRun(
+                        _chartSum, _monthly_reports, _current_month_reports)
                 ],
               ),
               Text('Page 2'),
