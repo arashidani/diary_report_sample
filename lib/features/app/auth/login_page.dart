@@ -1,135 +1,94 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:diary_report_sample/4_presentation/router/routes.dart';
+import 'package:diary_report_sample/features/root/providers/auth_state_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_charts/flutter_charts.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  String newUserName = '';
-  String newUserEmail = '';
-  String newUserPassword = '';
-  String infoText = '';
-  String loginUserEmail = '';
-  String loginUserPassword = '';
-  String logininfoText = '';
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      // バリデーション成功時の処理
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Logged in as ${_emailController.text}')),
+      );
+      final firebaseAuthService = ref.watch(firebaseAuthServiceProvider);
+
+      Navigator.of(context).pushNamed(Routes.topView);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // nameアドレスを入力するテキストフィールドを作成する
-            TextField(
-              decoration: InputDecoration(labelText: "name"),
-              onChanged: (String value) => setState(() {
-                newUserName = value;
-              }),
-            ),
-            // Emailアドレスを入力するテキストフィールドを作成する
-            TextField(
-              decoration: InputDecoration(labelText: "Email"),
-              onChanged: (String value) => setState(() {
-                newUserEmail = value;
-              }),
-            ),
-
-            const SizedBox(height: 8),
-            // パスワードを入力するテキストフィールドを作成する
-            TextField(
-              decoration: InputDecoration(labelText: "Password"),
-              //パスワードが見えないように設定する
-              obscureText: true,
-              onChanged: (String value) => setState(() {
-                newUserPassword = value;
-              }),
-            ),
-            const SizedBox(height: 8),
-            // このボタンを押すとFirebaseにユーザー情報が登録される
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  final FirebaseAuth auth = FirebaseAuth.instance;
-                  final UserCredential result =
-                      await auth.createUserWithEmailAndPassword(
-                    email: newUserEmail,
-                    password: newUserPassword,
-                  );
-                  print(newUserEmail);
-
-                  final User user = result.user!;
-                  await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user.uid)
-                      .set({
-                    'name': newUserName, // 任意のユーザ情報
-                    'email': user.email, // 任意のユーザ情報
-                  });
-
-                  setState(() {
-                    infoText = "ユーザー登録を完了しました。登録したメールアドレスは${user.email}です";
-                  });
-                } catch (e) {
-                  setState(() {
-                    infoText = "ユーザー登録時にエラーが発生しました";
-                  });
-                }
-              },
-              child: Text('Sign Up'),
-            ),
-            const SizedBox(height: 8),
-            Text("Login"),
-            TextField(
-              decoration: InputDecoration(labelText: "Email"),
-              onChanged: (String value) => setState(() {
-                loginUserEmail = value;
-              }),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(labelText: "Password"),
-              obscureText: true,
-              onChanged: (String value) => setState(() {
-                loginUserPassword = value;
-              }),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  final FirebaseAuth auth = FirebaseAuth.instance;
-                  final UserCredential result =
-                      await auth.signInWithEmailAndPassword(
-                    email: loginUserEmail,
-                    password: loginUserPassword,
-                  );
-
-                  final User user = result.user!;
-                  context.go("/account/info");
-                  setState(() {
-                    infoText = "ログインに成功しました。ログインメールアドレスは${user.email}です";
-                  });
-                } catch (e) {
-                  setState(() {
-                    infoText = 'ログイン時にエラーが発生しました';
-                  });
-                }
-              },
-              child: Text('Login'),
-            ),
-            const SizedBox(height: 8),
-            Text(infoText),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Page'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _login,
+                child: Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -25,8 +25,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.diary_report_sample.diary_report_sample"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    compileSdk 34
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -44,10 +44,10 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.diary_report_sample.diary_report_sample"
-        // You can update the following values to match your application needs.
+        // You can update the following values to match your 2_application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 24
-        targetSdkVersion flutter.minSdkVersion
+        minSdk 23
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

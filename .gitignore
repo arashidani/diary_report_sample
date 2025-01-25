@@ -87,3 +87,6 @@ app.*.map.json
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
+
+# FVM Version Cache
+.fvm/
