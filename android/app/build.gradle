@@ -65,8 +65,10 @@ flutter {
     source '../..'
 }
 
+def kotlin_version = "1.9.20"
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+    implementation platform('com.google.firebase:firebase-bom:33.10.0')
 //    implementation "com.google.firebase:firebase-firestore:24.10.2"
 }
