@@ -36,6 +36,7 @@ dependencies:
   universal_html: ^2.2.4
   shared_preferences: ^2.5.2
   flutter_svg: ^2.0.17
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -52,5 +53,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icon/
 #    - assets/fonts/
     - configs/

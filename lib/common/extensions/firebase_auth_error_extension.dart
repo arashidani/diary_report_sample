@@ -16,7 +16,7 @@ extension FirebaseAuthErrorMessage on FirebaseAuthError {
       case OperationNotAllowed():
         return '操作が許可されていません';
       case Unknown(code: final code):
-        return '認証エラー';
+        return '認証エラー　($code)';
     }
   }
 

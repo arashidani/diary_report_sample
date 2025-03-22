@@ -4,7 +4,6 @@ import 'package:diary_report_sample/features/auth/views/login_page.dart';
 import 'package:diary_report_sample/features/auth/views/profile_setup_page.dart';
 import 'package:diary_report_sample/features/auth/views/sign_up_page.dart';
 import 'package:diary_report_sample/features/root/views/root_view.dart';
-import 'package:diary_report_sample/top_view.dart';
 import 'package:go_router/go_router.dart';
 
 // 静的な Route クラス
