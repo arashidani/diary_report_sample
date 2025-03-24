@@ -47,7 +47,7 @@ class DailyReportsView extends ConsumerWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.edit),
       ),
     );
   }
