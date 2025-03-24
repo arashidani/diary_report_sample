@@ -67,11 +67,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: Center(
-                  // child: SvgPicture.asset(
-                  //   'assets/images/logo.svg',
-                  //   width: 100,
-                  //   height: 100,
-                  // ),
                   child: Image.asset(
                     'assets/images/Icon-192.png',
                     width: 160,
