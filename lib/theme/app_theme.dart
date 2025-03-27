@@ -1,11 +1,13 @@
 import 'package:diary_report_sample/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyAppTheme {
   const MyAppTheme._(); // インスタンス化防止用の private コンストラクタ
 
   // ライトテーマ
   static final ThemeData lightTheme = ThemeData(
+    fontFamily: 'MPlus1p',
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: BrandColor.seedColor,
@@ -20,6 +22,7 @@ class MyAppTheme {
 
   // ダークテーマ
   static final ThemeData darkTheme = ThemeData(
+    fontFamily: 'MPlus1p',
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: BrandColor.seedColor,
