@@ -1,9 +1,12 @@
+import 'package:diary_report_sample/app/routes.dart';
 import 'package:diary_report_sample/features/daily_reports/views/daily_reports_view.dart';
 import 'package:diary_report_sample/features/setting/views/setting_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RootView extends StatefulWidget {
-  const RootView({super.key});
+  const RootView({super.key, required this.child});
+  final Widget child;
 
   @override
   _RootViewState createState() => _RootViewState();
@@ -12,25 +15,28 @@ class RootView extends StatefulWidget {
 class _RootViewState extends State<RootView> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    HomeScreen(),
-    const DailyReportsView(),
-    const SettingView(),
+  final List<String> _routes = [
+    Routes.home,
+    Routes.dailyReports,
+    Routes.setting
   ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    context.go(_routes[index]);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // キーボード表示時に画面が調整されず、意図せずTextFieldが押せないことがある
       resizeToAvoidBottomInset: false, // Not related to navigation
-      body: SelectionArea(child: _pages[_currentIndex]),
+      body: SelectionArea(child: widget.child),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onDestinationSelected: _onTap,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home),
