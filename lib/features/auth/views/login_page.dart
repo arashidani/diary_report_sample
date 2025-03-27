@@ -58,55 +58,57 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       appBar: AppBar(
         title: const Text('ログイン'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/Icon-192.png',
-                    width: 160,
-                    height: 160,
+      body: SelectionArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Icon-192.png',
+                      width: 160,
+                      height: 160,
+                    ),
                   ),
                 ),
               ),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'メールアドレス'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'パスワード'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _onLoginPressed,
-                child: const Text('ログイン'),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
               ),
-            ),
-            TextButton(
-              onPressed: () {
-                // サインアップページへは push で移動（戻ってこれる）
-                context.push(Routes.signUp);
-              },
-              child: const Text('新規登録はこちら'),
-            ),
-            TextButton(
-              onPressed: () {
-                // パスワードリセットページへ
-                context.push(Routes.forgetPassword);
-              },
-              child: const Text('パスワードをお忘れの方はこちら'),
-            ),
-          ],
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'パスワード'),
+                obscureText: true,
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _onLoginPressed,
+                  child: const Text('ログイン'),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  // サインアップページへは push で移動（戻ってこれる）
+                  context.push(Routes.signUp);
+                },
+                child: const Text('新規登録はこちら'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // パスワードリセットページへ
+                  context.push(Routes.forgetPassword);
+                },
+                child: const Text('パスワードをお忘れの方はこちら'),
+              ),
+            ],
+          ),
         ),
       ),
     );

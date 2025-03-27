@@ -72,27 +72,30 @@ class _SetUpPageState extends ConsumerState<SetUpPage> {
       data: (userDoc) {
         return Scaffold(
           appBar: AppBar(title: const Text('プロフィール設定')),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextField(
-                  controller: _firstNameController
-                    ..text = userDoc?.firstName ?? '',
-                  decoration:
-                      const InputDecoration(labelText: '名 (First Name)'),
-                ),
-                TextField(
-                  controller: _lastNameController
-                    ..text = userDoc?.lastName ?? '',
-                  decoration: const InputDecoration(labelText: '姓 (Last Name)'),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _saveProfile,
-                  child: const Text('ホームへ'),
-                ),
-              ],
+          body: SelectionArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _firstNameController
+                      ..text = userDoc?.firstName ?? '',
+                    decoration:
+                        const InputDecoration(labelText: '名 (First Name)'),
+                  ),
+                  TextField(
+                    controller: _lastNameController
+                      ..text = userDoc?.lastName ?? '',
+                    decoration:
+                        const InputDecoration(labelText: '姓 (Last Name)'),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _saveProfile,
+                    child: const Text('ホームへ'),
+                  ),
+                ],
+              ),
             ),
           ),
         );

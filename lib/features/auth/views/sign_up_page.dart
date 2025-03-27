@@ -42,52 +42,54 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       appBar: AppBar(
         title: const Text('新規登録'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: Center(
-                  // child: SvgPicture.asset(
-                  //   'assets/images/logo.svg',
-                  //   width: 100,
-                  //   height: 100,
-                  // ),
-                  child: Image.asset(
-                    'assets/images/Icon-192.png',
-                    width: 160,
-                    height: 160,
+      body: SelectionArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Center(
+                    // child: SvgPicture.asset(
+                    //   'assets/images/logo.svg',
+                    //   width: 100,
+                    //   height: 100,
+                    // ),
+                    child: Image.asset(
+                      'assets/images/Icon-192.png',
+                      width: 160,
+                      height: 160,
+                    ),
                   ),
                 ),
               ),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'メールアドレス'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'パスワード'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _onSignUpPressed,
-                child: const Text('登録する'),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
               ),
-            ),
-            TextButton(
-              onPressed: () {
-                context.go(Routes.login);
-              },
-              child: const Text('ログイン画面に戻る'),
-            ),
-          ],
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(labelText: 'パスワード'),
+                obscureText: true,
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _onSignUpPressed,
+                  child: const Text('登録する'),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  context.go(Routes.login);
+                },
+                child: const Text('ログイン画面に戻る'),
+              ),
+            ],
+          ),
         ),
       ),
     );

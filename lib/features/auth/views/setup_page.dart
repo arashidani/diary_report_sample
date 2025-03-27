@@ -36,20 +36,23 @@ class _SetUpPageState extends ConsumerState<SetUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('プロフィール設定')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(children: [
-          TextField(
-              controller: _first,
-              decoration: const InputDecoration(labelText: '名')),
-          TextField(
-              controller: _last,
-              decoration: const InputDecoration(labelText: '姓')),
-          const SizedBox(height: 16),
-          SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(onPressed: _save, child: const Text('保存')))
-        ]),
+      body: SelectionArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(children: [
+            TextField(
+                controller: _first,
+                decoration: const InputDecoration(labelText: '名')),
+            TextField(
+                controller: _last,
+                decoration: const InputDecoration(labelText: '姓')),
+            const SizedBox(height: 16),
+            SizedBox(
+                width: double.infinity,
+                child:
+                    ElevatedButton(onPressed: _save, child: const Text('保存')))
+          ]),
+        ),
       ),
     );
   }

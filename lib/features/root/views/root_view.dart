@@ -23,7 +23,7 @@ class _RootViewState extends State<RootView> {
     return Scaffold(
       // キーボード表示時に画面が調整されず、意図せずTextFieldが押せないことがある
       resizeToAvoidBottomInset: false, // Not related to navigation
-      body: _pages[_currentIndex],
+      body: SelectionArea(child: _pages[_currentIndex]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {

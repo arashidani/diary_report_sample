@@ -45,24 +45,26 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
       appBar: AppBar(
         title: const Text('パスワードリセット'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'メールアドレス'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _onResetPressed,
-              child: const Text('リセットメールを送信'),
-            ),
-          ],
+      body: SelectionArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'メールアドレス'),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _onResetPressed,
+                child: const Text('リセットメールを送信'),
+              ),
+            ],
+          ),
         ),
       ),
     );
