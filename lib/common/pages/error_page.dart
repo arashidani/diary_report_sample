@@ -5,15 +5,14 @@ import 'package:go_router/go_router.dart';
 
 // Web用の存在しないpathを入力した際に表示されるページ
 class ErrorPage extends StatelessWidget {
-  final String error;
-
-  const ErrorPage({super.key, required this.error});
+  const ErrorPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Error Page'), backgroundColor: BrandColor.error),
+          title: const Text('Page Not Found'),
+          backgroundColor: BrandColor.error),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -21,20 +20,20 @@ class ErrorPage extends StatelessWidget {
             const Icon(
               Icons.error,
               color: BrandColor.error,
-              size: 100,
+              size: 40,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
-              error,
+              "This page does not exist.",
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 18,
                 color: BrandColor.error,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                context.go(Routes.login);
+                context.replace(Routes.login);
               },
               child: const Text('ログインページに戻る'),
             ),

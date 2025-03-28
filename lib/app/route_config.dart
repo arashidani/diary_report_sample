@@ -1,5 +1,8 @@
+import 'package:diary_report_sample/common/pages/error_page.dart';
+import 'package:diary_report_sample/features/lincense/view/show_license_page.dart';
 import 'package:diary_report_sample/providers/auth_state_provider.dart';
 import 'package:diary_report_sample/providers/user_doc_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'routes.dart';
@@ -23,6 +26,10 @@ class RouterNotifier extends Notifier<GoRouter> {
     return GoRouter(
       initialLocation: Routes.login,
       routes: Routes.routes,
+      errorBuilder: (context, state) {
+        debugPrint('${state.error}');
+        return const ErrorPage();
+      },
       redirect: (context, state) {
         final path = state.uri.path;
 
