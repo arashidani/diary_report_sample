@@ -24,16 +24,11 @@ class RouterNotifier extends Notifier<GoRouter> {
       initialLocation: Routes.login,
       routes: Routes.routes,
       redirect: (context, state) {
-        print('redirect: ${state.uri.path}');
         final path = state.uri.path;
 
         // 1) 未ログイン時の制御
-        if (!isLoggedIn) {
-          // main, setup は未ログインなら見せない → loginへ
-          if (path == Routes.home || path == Routes.profileSetup) {
-            return Routes.login;
-          }
-          return null;
+        if (!isLoggedIn && Routes.requiresAuth.contains(path)) {
+          return Routes.login;
         }
 
         // 2) userDocの読み込みがまだの場合（nullの場合）
@@ -53,10 +48,9 @@ class RouterNotifier extends Notifier<GoRouter> {
         }
 
         // 5) ログイン済み + プロフィールOK で login, signUp, resetPasswordに居る → mainへ
-        final isAuthPage = path == Routes.login ||
-            path == Routes.signUp ||
-            path == Routes.profileSetup;
-        if (isProfileComplete && isAuthPage) {
+        if (isLoggedIn &&
+            isProfileComplete &&
+            Routes.authPages.contains(path)) {
           return Routes.home;
         }
 
