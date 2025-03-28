@@ -1,5 +1,4 @@
 import 'package:diary_report_sample/common/pages/error_page.dart';
-import 'package:diary_report_sample/features/lincense/view/show_license_page.dart';
 import 'package:diary_report_sample/providers/auth_state_provider.dart';
 import 'package:diary_report_sample/providers/user_doc_provider.dart';
 import 'package:flutter/material.dart';

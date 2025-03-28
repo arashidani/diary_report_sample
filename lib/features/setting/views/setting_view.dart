@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diary_report_sample/app/routes.dart';
 import 'package:diary_report_sample/common/components/common_dialog.dart';
 import 'package:diary_report_sample/features/auth/viewmodels/users_provider.dart';
@@ -47,7 +46,7 @@ class SettingView extends ConsumerWidget {
                     imageUrl:
                         'https://avatars.githubusercontent.com/u/100942704?v=4',
                   ),
-                  SizedBox(width: 32),
+                  SizedBox(width: 20),
                   userDoc.maybeWhen(
                       data: (user) => Text(
                             user!.fullName, // ユーザー名
@@ -58,7 +57,7 @@ class SettingView extends ConsumerWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 10),
             const SectionHeader(title: 'アカウント設定'),
             ListTile(
               leading: Icon(Icons.person),
@@ -146,7 +145,7 @@ class SettingView extends ConsumerWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
               child: Center(
                 child: packageInfoAsync.maybeWhen(
                   data: (packageInfo) => Text(
@@ -155,6 +154,31 @@ class SettingView extends ConsumerWidget {
                   ),
                   orElse: () => const Text('バージョン: 情報がありません'),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ユーザーID：$uid',
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {},
+                    child: IconButton(
+                      icon: Icon(Icons.copy, size: 20, color: Colors.grey[700]),
+                      onPressed: () {
+                        Clipboard.setData(ClipboardData(text: "$uid"));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('ユーザーIDをコピーしました')),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -177,25 +201,6 @@ class SettingView extends ConsumerWidget {
                   },
                 );
               },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ユーザーID：$uid',
-                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                ),
-                const SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () {
-                    Clipboard.setData(ClipboardData(text: "$uid"));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('ユーザーIDをコピーしました')),
-                    );
-                  },
-                  child: Icon(Icons.copy, size: 20, color: Colors.grey[700]),
-                ),
-              ],
             ),
           ],
         ),
