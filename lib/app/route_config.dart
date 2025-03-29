@@ -22,6 +22,7 @@ class RouterNotifier extends Notifier<GoRouter> {
     final isProfileComplete =
         userDoc != null && userDoc.firstName != "" && userDoc.lastName != "";
 
+    print(isProfileComplete);
     return GoRouter(
       initialLocation: Routes.login,
       routes: Routes.routes,

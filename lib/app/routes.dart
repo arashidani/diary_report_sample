@@ -1,3 +1,5 @@
+import 'package:diary_report_sample/app/app_route.dart';
+import 'package:diary_report_sample/app/route_transitions.dart';
 import 'package:diary_report_sample/features/auth/views/forget_password_page.dart';
 import 'package:diary_report_sample/features/auth/views/login_page.dart';
 import 'package:diary_report_sample/features/auth/views/profile_setup_page.dart';
@@ -7,6 +9,29 @@ import 'package:diary_report_sample/features/lincense/view/show_license_page.dar
 import 'package:diary_report_sample/features/root/views/root_view.dart';
 import 'package:diary_report_sample/features/setting/views/setting_view.dart';
 import 'package:go_router/go_router.dart';
+
+final List<AppRoute> appRoutes = [
+  AppRoute(
+    path: Routes.login,
+    builder: (_) => const LoginPage(),
+    transition: RouteType.fade,
+  ),
+  AppRoute(
+    path: Routes.signUp,
+    builder: (_) => const SignUpPage(),
+    transition: RouteType.fade,
+  ),
+  AppRoute(
+    path: Routes.profileSetup,
+    builder: (_) => const SetUpPage(),
+    transition: RouteType.slide,
+  ),
+  AppRoute(
+    path: Routes.forgetPassword,
+    builder: (_) => const ResetPasswordPage(),
+    transition: RouteType.fade,
+  ),
+];
 
 // 静的な Route クラス
 class Routes {
@@ -45,21 +70,26 @@ class Routes {
   ];
 
   static final routes = [
+    ...appRoutes.map(toGoRoute),
     GoRoute(
       path: login,
-      builder: (context, state) => const LoginPage(),
+      pageBuilder: (context, state) =>
+          slideTransitionPageBuilder(const LoginPage(), state),
     ),
     GoRoute(
       path: signUp,
-      builder: (context, state) => const SignUpPage(),
+      pageBuilder: (context, state) =>
+          slideTransitionPageBuilder(const SignUpPage(), state),
     ),
     GoRoute(
       path: forgetPassword,
-      builder: (context, state) => const ResetPasswordPage(),
+      pageBuilder: (context, state) =>
+          slideTransitionPageBuilder(const ResetPasswordPage(), state),
     ),
     GoRoute(
       path: profileSetup,
-      builder: (context, state) => const SetUpPage(),
+      pageBuilder: (context, state) =>
+          slideTransitionPageBuilder(const SetUpPage(), state),
     ),
     ShellRoute(
       builder: (context, state, child) => RootView(child: child),
@@ -67,22 +97,26 @@ class Routes {
         GoRoute(
           path: '/',
           name: home,
-          builder: (context, state) => HomeScreen(),
+          pageBuilder: (context, state) =>
+              noTransitionPageBuilder(HomeScreen(), state),
         ),
         GoRoute(
           path: '/daily-reports',
           name: dailyReports,
-          builder: (context, state) => const DailyReportsView(),
+          pageBuilder: (context, state) =>
+              noTransitionPageBuilder(const DailyReportsView(), state),
         ),
         GoRoute(
           path: '/setting',
           name: setting,
-          builder: (context, state) => const SettingView(),
+          pageBuilder: (context, state) =>
+              noTransitionPageBuilder(const SettingView(), state),
         ),
         GoRoute(
           path: '/licence',
           name: Routes.licence,
-          builder: (context, state) => const ShowLicencePage(),
+          pageBuilder: (context, state) =>
+              slideTransitionPageBuilder(const ShowLicencePage(), state),
         ),
       ],
     ),
