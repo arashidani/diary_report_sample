@@ -39,6 +39,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   package_info_plus: ^8.3.0
   cached_network_image: ^3.4.1
+  fl_chart: ^0.70.2
 
 dev_dependencies:
   flutter_test:
