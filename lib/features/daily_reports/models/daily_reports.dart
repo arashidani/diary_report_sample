@@ -9,7 +9,7 @@ part 'daily_reports.g.dart';
 abstract class DailyReports with _$DailyReports {
   const factory DailyReports({
     @Default('') String docId,
-    @Default(null) DateTime? date,
+    @TimeStampConverter() DateTime? date,
     @Default(null) bool? isApproval,
     @Default(false) bool? hasSubstituteHoliday,
     @Default(0.0) double absentOrLeft,

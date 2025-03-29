@@ -16,6 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DailyReports {
   String get docId;
+  @TimeStampConverter()
   DateTime? get date;
   bool? get isApproval;
   bool? get hasSubstituteHoliday;
@@ -84,7 +85,7 @@ abstract mixin class $DailyReportsCopyWith<$Res> {
   @useResult
   $Res call(
       {String docId,
-      DateTime? date,
+      @TimeStampConverter() DateTime? date,
       bool? isApproval,
       bool? hasSubstituteHoliday,
       double absentOrLeft,
@@ -156,7 +157,7 @@ class _$DailyReportsCopyWithImpl<$Res> implements $DailyReportsCopyWith<$Res> {
 class _DailyReports implements DailyReports {
   const _DailyReports(
       {this.docId = '',
-      this.date = null,
+      @TimeStampConverter() this.date,
       this.isApproval = null,
       this.hasSubstituteHoliday = false,
       this.absentOrLeft = 0.0,
@@ -171,7 +172,7 @@ class _DailyReports implements DailyReports {
   @JsonKey()
   final String docId;
   @override
-  @JsonKey()
+  @TimeStampConverter()
   final DateTime? date;
   @override
   @JsonKey()
@@ -262,7 +263,7 @@ abstract mixin class _$DailyReportsCopyWith<$Res>
   @useResult
   $Res call(
       {String docId,
-      DateTime? date,
+      @TimeStampConverter() DateTime? date,
       bool? isApproval,
       bool? hasSubstituteHoliday,
       double absentOrLeft,

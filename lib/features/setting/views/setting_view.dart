@@ -48,7 +48,7 @@ class SettingView extends ConsumerWidget {
                   SizedBox(width: 20),
                   userState.maybeWhen(
                       data: (user) => Text(
-                            user!.fullName,
+                            user!.fullName.isEmpty ? 'ユーザー名なし' : user.fullName,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
