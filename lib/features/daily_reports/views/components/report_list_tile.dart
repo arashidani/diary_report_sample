@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diary_report_sample/features/daily_reports/models/daily_reports.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/reports_edit_sheet.dart';
 import 'package:flutter/material.dart';
 
 class ReportListTile extends StatelessWidget {
   final String docId;
-  final Map<String, dynamic> data;
+  final DailyReports dailyReports;
 
   const ReportListTile({
     super.key,
     required this.docId,
-    required this.data,
+    required this.dailyReports,
   });
 
   @override
@@ -28,7 +29,7 @@ class ReportListTile extends StatelessWidget {
           context: context,
           builder: (_) => AlertDialog(
             title: const Text('Delete Diary?'),
-            content: Text('Delete "${data['title']}"?'),
+            content: Text('Delete "${dailyReports.docId}"?'),
             actions: [
               TextButton(
                   onPressed: () => Navigator.pop(context, false),
@@ -47,8 +48,8 @@ class ReportListTile extends StatelessWidget {
             .delete();
       },
       child: ListTile(
-        title: Text(data['title'] ?? ''),
-        subtitle: Text((data['date'] as Timestamp).toDate().toString()),
+        title: Text(dailyReports.docId),
+        subtitle: Text(dailyReports.date.toString()),
         onTap: () {
           showModalBottomSheet(
             context: context,
@@ -57,9 +58,9 @@ class ReportListTile extends StatelessWidget {
               padding: MediaQuery.of(context).viewInsets,
               child: ReportsEditSheet(
                 docId: docId,
-                initialTitle: data['title'],
-                initialContent: data['content'],
-                initialDate: (data['date'] as Timestamp).toDate(),
+                initialTitle: dailyReports.docId,
+                initialContent: "${dailyReports.toJson()}",
+                initialDate: dailyReports.date,
               ),
             ),
           );

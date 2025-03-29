@@ -1,12 +1,11 @@
 import 'package:diary_report_sample/app/routes.dart';
 import 'package:diary_report_sample/common/components/common_dialog.dart';
-import 'package:diary_report_sample/features/auth/viewmodels/users_provider.dart';
+import 'package:diary_report_sample/features/auth/viewmodels/user_notifier_provider.dart';
 import 'package:diary_report_sample/features/setting/views/components/cutom_avatar.dart';
 import 'package:diary_report_sample/features/setting/views/components/section_header.dart';
 import 'package:diary_report_sample/providers/auth_state_provider.dart';
 import 'package:diary_report_sample/providers/package_info_provider.dart';
 import 'package:diary_report_sample/providers/theme_provider.dart';
-import 'package:diary_report_sample/providers/user_doc_provider.dart';
 import 'package:diary_report_sample/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,17 +17,17 @@ class SettingView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final uid = ref.watch(authStateProvider).value?.uid;
+
     final packageInfoAsync = ref.watch(packageInfoProvider);
 
-    final firebaseAuthService = ref.read(firebaseAuthServiceProvider);
-    final authState = ref.watch(authStateProvider);
-    final uid = authState.value?.uid;
-    final userDoc = ref.watch(userDocProvider(uid ?? ''));
-    final usersNotifier = ref.read(usersProvider.notifier);
+    final userState = ref.watch(userNotifierProvider);
+    final userNotifier = ref.read(userNotifierProvider.notifier);
 
     final themeNotifier = ref.read(themeProvider.notifier);
     final themeMode = ref.watch(themeProvider);
     final isDarkMode = themeMode == ThemeMode.dark;
+
     // final localeNotifier = ref.read(localeProvider.notifier);
     // final currentLocale = ref.watch(localeProvider);
 
@@ -47,9 +46,9 @@ class SettingView extends ConsumerWidget {
                         'https://avatars.githubusercontent.com/u/100942704?v=4',
                   ),
                   SizedBox(width: 20),
-                  userDoc.maybeWhen(
+                  userState.maybeWhen(
                       data: (user) => Text(
-                            user!.fullName, // ユーザー名
+                            user!.fullName,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -135,7 +134,7 @@ class SettingView extends ConsumerWidget {
                   onOkPressed: () async {
                     if (!context.mounted) return;
                     // Logout後に置き換え => 戻れなくする
-                    await firebaseAuthService.signOut(); // 確実にサインアウトしてから遷移
+                    await userNotifier.signOut(); // 確実にサインアウトしてから遷移
                     if (context.mounted) {
                       context.replace(Routes.login);
                     }
@@ -145,7 +144,7 @@ class SettingView extends ConsumerWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Center(
                 child: packageInfoAsync.maybeWhen(
                   data: (packageInfo) => Text(
@@ -157,13 +156,13 @@ class SettingView extends ConsumerWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'ユーザーID：$uid',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    'id：$uid',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 8),
                   GestureDetector(
@@ -193,10 +192,9 @@ class SettingView extends ConsumerWidget {
                   'アカウントを削除してもよろしいですか？',
                   onOkPressed: () async {
                     if (!context.mounted) return;
-                    await usersNotifier.deleteUser(uid!);
-                    await authState.value?.delete(); //
+                    await userNotifier.deleteUser();
                     if (context.mounted) {
-                      context.replace(Routes.signUp); // 🔁 go -> replace
+                      context.replace(Routes.signUp);
                     }
                   },
                 );

@@ -33,7 +33,7 @@ class FirebaseAuthService {
 
   /// メールとパスワードで新規登録
   Future<User?> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+      String email, String password) async {
     try {
       final credential = await _auth.createUserWithEmailAndPassword(
         email: email,

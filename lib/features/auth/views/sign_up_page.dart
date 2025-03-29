@@ -1,7 +1,7 @@
 // lib/ui/signup/sign_up_page.dart
 import 'package:diary_report_sample/app/routes.dart';
 import 'package:diary_report_sample/common/extensions/firebase_auth_error_extension.dart';
-import 'package:diary_report_sample/providers/auth_state_provider.dart';
+import 'package:diary_report_sample/features/auth/viewmodels/user_notifier_provider.dart';
 import 'package:diary_report_sample/services/firebase_auth_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,13 +19,13 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   final _passwordController = TextEditingController();
 
   Future<void> _onSignUpPressed() async {
-    final authService = ref.read(firebaseAuthServiceProvider);
-
+    final userNotifier = ref.read(userNotifierProvider.notifier);
     try {
-      await authService.createUserWithEmailAndPassword(
+      await userNotifier.createUser(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
       if (!mounted) return;
       // サインアップ後に戻らないように
       context.replace(Routes.home);

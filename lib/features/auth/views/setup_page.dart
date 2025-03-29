@@ -5,7 +5,6 @@ import 'package:diary_report_sample/providers/auth_state_provider.dart';
 import 'package:firestore_client/firestore_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SetUpPage extends ConsumerStatefulWidget {
   const SetUpPage({Key? key}) : super(key: key);

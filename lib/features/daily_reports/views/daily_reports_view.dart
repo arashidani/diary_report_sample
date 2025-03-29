@@ -20,24 +20,7 @@ class DailyReportsView extends ConsumerWidget {
         title: const Text('日報一覧'),
         actions: const [ShimeTitleButton()],
       ),
-      body: SelectionArea(
-        child: diaryStream.when(
-          data: (snapshot) {
-            if (snapshot.docs.isEmpty) {
-              return const Center(child: Text('No daily reports entries.'));
-            }
-
-            return ListView(
-              children: snapshot.docs.map((doc) {
-                final data = doc.data();
-                return ReportListTile(docId: doc.id, data: data);
-              }).toList(),
-            );
-          },
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(child: Text('Error: $err')),
-        ),
-      ),
+      body: SelectionArea(child: Container()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
