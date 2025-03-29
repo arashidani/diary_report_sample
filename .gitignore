@@ -6,9 +6,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -46,6 +48,8 @@ app.*.map.json
 
 # Android related
 **/android/**/gradle-wrapper.jar
+**/android/**/.cxx/
+
 .gradle/
 **/android/captures/
 **/android/gradlew
@@ -83,6 +87,8 @@ app.*.map.json
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner.xcodeproj/xcuserdata/
+
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/

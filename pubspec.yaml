@@ -5,7 +5,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.0-30.0.dev <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -20,17 +20,25 @@ dependencies:
   freezed_annotation:
   json_annotation:
   intl:
-  persistent_bottom_nav_bar_v2: ^4.2.8
   google_fonts: 6.1.0
   flutter_datetime_picker_plus: ^2.1.0
   flutter_charts: ^0.5.2
   firebase_auth: ^5.0.0
   flutter_dotenv: ^5.2.1
-  bot_toast: ^4.1.3
   email_validator: ^3.0.0
-  google_sign_in: ^6.2.2
+#  google_sign_in: ^6.2.2
   sign_in_button: ^3.2.0
-  home_widget: ^0.7.0
+  firestore_client:
+    git:
+      url: https://github.com/arashidani/firestore_client.git
+      ref: main
+  web: ^1.1.1
+  universal_html: ^2.2.4
+  shared_preferences: ^2.5.2
+  flutter_svg: ^2.0.17
+  flutter_launcher_icons: ^0.14.3
+  package_info_plus: ^8.3.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +54,25 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-#    - assets/images/
+    - assets/images/
+    - assets/icon/
 #    - assets/fonts/
     - configs/
+  fonts:
+    - family: MPlus1p
+      fonts:
+        - asset: assets/fonts/MPLUS1p-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/MPLUS1p-Light.ttf
+          weight: 300
+        - asset: assets/fonts/MPLUS1p-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/MPLUS1p-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/MPLUS1p-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/MPLUS1p-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/MPLUS1p-Black.ttf
+          weight: 900
+

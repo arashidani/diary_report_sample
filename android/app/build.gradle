@@ -25,16 +25,16 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.diary_report_sample.diary_report_sample"
-    compileSdk 34
+    compileSdk 35
     ndkVersion = "26.1.10909125"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -47,7 +47,7 @@ android {
         // You can update the following values to match your 2_application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk 23
-        targetSdk 34
+        targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -65,8 +65,10 @@ flutter {
     source '../..'
 }
 
+def kotlin_version = "1.9.20"
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+    implementation platform('com.google.firebase:firebase-bom:33.10.0')
 //    implementation "com.google.firebase:firebase-firestore:24.10.2"
 }
