@@ -8,12 +8,9 @@ part 'daily_report_project.g.dart';
 @freezed
 abstract class DailyReportProject with _$DailyReportProject {
   const factory DailyReportProject({
-    @Default('') String docId,
     @Default(0.0) double business,
     @Default(0.0) double late,
     @Default(0.0) double over,
-    @TimeStampConverter() DateTime? createdAt,
-    @TimeStampConverter() DateTime? updatedAt,
   }) = _DailyReportProject;
 
   factory DailyReportProject.fromJson(Map<String, dynamic> json) =>

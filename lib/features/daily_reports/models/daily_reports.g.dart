@@ -17,6 +17,12 @@ _DailyReports _$DailyReportsFromJson(Map<String, dynamic> json) =>
             (k, e) => MapEntry(k, (e as num).toDouble()),
           ) ??
           const {},
+      dailyReportProjects:
+          (json['dailyReportProjects'] as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(
+                    k, DailyReportProject.fromJson(e as Map<String, dynamic>)),
+              ) ??
+              const {},
       createdAt: const TimeStampConverter().fromJson(json['createdAt']),
       updatedAt: const TimeStampConverter().fromJson(json['updatedAt']),
     );
@@ -29,6 +35,7 @@ Map<String, dynamic> _$DailyReportsToJson(_DailyReports instance) =>
       'hasSubstituteHoliday': instance.hasSubstituteHoliday,
       'absentOrLeft': instance.absentOrLeft,
       'holidays': instance.holidays,
+      'dailyReportProjects': instance.dailyReportProjects,
       'createdAt': const TimeStampConverter().toJson(instance.createdAt),
       'updatedAt': const TimeStampConverter().toJson(instance.updatedAt),
     };

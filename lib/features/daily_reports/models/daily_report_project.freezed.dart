@@ -15,14 +15,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$DailyReportProject {
-  String get docId;
   double get business;
   double get late;
   double get over;
-  @TimeStampConverter()
-  DateTime? get createdAt;
-  @TimeStampConverter()
-  DateTime? get updatedAt;
 
   /// Create a copy of DailyReportProject
   /// with the given fields replaced by the non-null parameter values.
@@ -40,25 +35,19 @@ mixin _$DailyReportProject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DailyReportProject &&
-            (identical(other.docId, docId) || other.docId == docId) &&
             (identical(other.business, business) ||
                 other.business == business) &&
             (identical(other.late, late) || other.late == late) &&
-            (identical(other.over, over) || other.over == over) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.over, over) || other.over == over));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, docId, business, late, over, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, business, late, over);
 
   @override
   String toString() {
-    return 'DailyReportProject(docId: $docId, business: $business, late: $late, over: $over, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'DailyReportProject(business: $business, late: $late, over: $over)';
   }
 }
 
@@ -68,13 +57,7 @@ abstract mixin class $DailyReportProjectCopyWith<$Res> {
           DailyReportProject value, $Res Function(DailyReportProject) _then) =
       _$DailyReportProjectCopyWithImpl;
   @useResult
-  $Res call(
-      {String docId,
-      double business,
-      double late,
-      double over,
-      @TimeStampConverter() DateTime? createdAt,
-      @TimeStampConverter() DateTime? updatedAt});
+  $Res call({double business, double late, double over});
 }
 
 /// @nodoc
@@ -90,18 +73,11 @@ class _$DailyReportProjectCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? docId = null,
     Object? business = null,
     Object? late = null,
     Object? over = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_self.copyWith(
-      docId: null == docId
-          ? _self.docId
-          : docId // ignore: cast_nullable_to_non_nullable
-              as String,
       business: null == business
           ? _self.business
           : business // ignore: cast_nullable_to_non_nullable
@@ -114,14 +90,6 @@ class _$DailyReportProjectCopyWithImpl<$Res>
           ? _self.over
           : over // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: freezed == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -130,18 +98,10 @@ class _$DailyReportProjectCopyWithImpl<$Res>
 @JsonSerializable()
 class _DailyReportProject implements DailyReportProject {
   const _DailyReportProject(
-      {this.docId = '',
-      this.business = 0.0,
-      this.late = 0.0,
-      this.over = 0.0,
-      @TimeStampConverter() this.createdAt,
-      @TimeStampConverter() this.updatedAt});
+      {this.business = 0.0, this.late = 0.0, this.over = 0.0});
   factory _DailyReportProject.fromJson(Map<String, dynamic> json) =>
       _$DailyReportProjectFromJson(json);
 
-  @override
-  @JsonKey()
-  final String docId;
   @override
   @JsonKey()
   final double business;
@@ -151,12 +111,6 @@ class _DailyReportProject implements DailyReportProject {
   @override
   @JsonKey()
   final double over;
-  @override
-  @TimeStampConverter()
-  final DateTime? createdAt;
-  @override
-  @TimeStampConverter()
-  final DateTime? updatedAt;
 
   /// Create a copy of DailyReportProject
   /// with the given fields replaced by the non-null parameter values.
@@ -178,25 +132,19 @@ class _DailyReportProject implements DailyReportProject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DailyReportProject &&
-            (identical(other.docId, docId) || other.docId == docId) &&
             (identical(other.business, business) ||
                 other.business == business) &&
             (identical(other.late, late) || other.late == late) &&
-            (identical(other.over, over) || other.over == over) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.over, over) || other.over == over));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, docId, business, late, over, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, business, late, over);
 
   @override
   String toString() {
-    return 'DailyReportProject(docId: $docId, business: $business, late: $late, over: $over, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'DailyReportProject(business: $business, late: $late, over: $over)';
   }
 }
 
@@ -208,13 +156,7 @@ abstract mixin class _$DailyReportProjectCopyWith<$Res>
       __$DailyReportProjectCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {String docId,
-      double business,
-      double late,
-      double over,
-      @TimeStampConverter() DateTime? createdAt,
-      @TimeStampConverter() DateTime? updatedAt});
+  $Res call({double business, double late, double over});
 }
 
 /// @nodoc
@@ -230,18 +172,11 @@ class __$DailyReportProjectCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? docId = null,
     Object? business = null,
     Object? late = null,
     Object? over = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_DailyReportProject(
-      docId: null == docId
-          ? _self.docId
-          : docId // ignore: cast_nullable_to_non_nullable
-              as String,
       business: null == business
           ? _self.business
           : business // ignore: cast_nullable_to_non_nullable
@@ -254,14 +189,6 @@ class __$DailyReportProjectCopyWithImpl<$Res>
           ? _self.over
           : over // ignore: cast_nullable_to_non_nullable
               as double,
-      createdAt: freezed == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }

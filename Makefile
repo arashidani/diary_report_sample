@@ -15,6 +15,9 @@ list:
 get:
 	fvm flutter pub get
 
+build_runner:
+	fvm flutter  pub run build_runner build --delete-conflicting-outputs
+
 # clean (ビルドキャッシュ削除)
 clean:
 	fvm flutter clean

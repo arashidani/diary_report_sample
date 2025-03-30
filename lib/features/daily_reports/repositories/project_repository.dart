@@ -54,6 +54,14 @@ class ProjectRepository {
     );
   }
 
+  // ユーザーのプロジェクトを一覧から削除
+  Future<void> deleteProject(String id) async {
+    return await _firestoreClient.delete(
+      collectionPath: DatabaseConstants.PROJECTS,
+      docId: id,
+    );
+  }
+
   // ユーザーのプロジェクト一覧から詳細情報付きのプロジェクトリストを取得
   Future<List<Project>> getUserProjectsWithDetails() async {
     final userProjects = await getUserProjects();

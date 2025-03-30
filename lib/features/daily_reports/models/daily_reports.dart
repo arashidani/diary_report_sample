@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_client/firestore_client.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'daily_report_project.dart';
+
 part 'daily_reports.freezed.dart';
 part 'daily_reports.g.dart';
 
@@ -14,6 +16,7 @@ abstract class DailyReports with _$DailyReports {
     @Default(false) bool? hasSubstituteHoliday,
     @Default(0.0) double absentOrLeft,
     @Default({}) Map<String, double> holidays,
+    @Default({}) Map<String, DailyReportProject> dailyReportProjects,
     @TimeStampConverter() DateTime? createdAt,
     @TimeStampConverter() DateTime? updatedAt,
   }) = _DailyReports;

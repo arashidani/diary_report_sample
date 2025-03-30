@@ -41,7 +41,8 @@ final reportsStreamProvider = StreamProvider.autoDispose
 
   // 日報一覧を取得
   return firestoreClient.watchQuery<DailyReports>(
-    collectionPath: 'users/$uid/dailyReports',
+    collectionPath:
+        '${DatabaseConstants.USERS}/$uid/${DatabaseConstants.DAILY_REPORTS}',
     conditions: [
       QueryCondition('date', isGreaterThanOrEqualTo: startDate),
       QueryCondition('date', isLessThan: endDate),
@@ -65,7 +66,8 @@ final singleReportProvider =
     final firestoreClient = ref.watch(firestoreClientProvider);
 
     return firestoreClient.watch<DailyReports>(
-      collectionPath: 'users/$uid/dailyReports',
+      collectionPath:
+          '${DatabaseConstants.USERS}/$uid/${DatabaseConstants.DAILY_REPORTS}',
       docId: reportId,
       fromJson: (json) => DailyReports.fromJson(json),
     );

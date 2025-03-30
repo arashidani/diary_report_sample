@@ -22,6 +22,7 @@ mixin _$DailyReports {
   bool? get hasSubstituteHoliday;
   double get absentOrLeft;
   Map<String, double> get holidays;
+  Map<String, DailyReportProject> get dailyReportProjects;
   @TimeStampConverter()
   DateTime? get createdAt;
   @TimeStampConverter()
@@ -52,6 +53,8 @@ mixin _$DailyReports {
             (identical(other.absentOrLeft, absentOrLeft) ||
                 other.absentOrLeft == absentOrLeft) &&
             const DeepCollectionEquality().equals(other.holidays, holidays) &&
+            const DeepCollectionEquality()
+                .equals(other.dailyReportProjects, dailyReportProjects) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -68,12 +71,13 @@ mixin _$DailyReports {
       hasSubstituteHoliday,
       absentOrLeft,
       const DeepCollectionEquality().hash(holidays),
+      const DeepCollectionEquality().hash(dailyReportProjects),
       createdAt,
       updatedAt);
 
   @override
   String toString() {
-    return 'DailyReports(docId: $docId, date: $date, isApproval: $isApproval, hasSubstituteHoliday: $hasSubstituteHoliday, absentOrLeft: $absentOrLeft, holidays: $holidays, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'DailyReports(docId: $docId, date: $date, isApproval: $isApproval, hasSubstituteHoliday: $hasSubstituteHoliday, absentOrLeft: $absentOrLeft, holidays: $holidays, dailyReportProjects: $dailyReportProjects, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -90,6 +94,7 @@ abstract mixin class $DailyReportsCopyWith<$Res> {
       bool? hasSubstituteHoliday,
       double absentOrLeft,
       Map<String, double> holidays,
+      Map<String, DailyReportProject> dailyReportProjects,
       @TimeStampConverter() DateTime? createdAt,
       @TimeStampConverter() DateTime? updatedAt});
 }
@@ -112,6 +117,7 @@ class _$DailyReportsCopyWithImpl<$Res> implements $DailyReportsCopyWith<$Res> {
     Object? hasSubstituteHoliday = freezed,
     Object? absentOrLeft = null,
     Object? holidays = null,
+    Object? dailyReportProjects = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -140,6 +146,10 @@ class _$DailyReportsCopyWithImpl<$Res> implements $DailyReportsCopyWith<$Res> {
           ? _self.holidays
           : holidays // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      dailyReportProjects: null == dailyReportProjects
+          ? _self.dailyReportProjects
+          : dailyReportProjects // ignore: cast_nullable_to_non_nullable
+              as Map<String, DailyReportProject>,
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -162,9 +172,11 @@ class _DailyReports implements DailyReports {
       this.hasSubstituteHoliday = false,
       this.absentOrLeft = 0.0,
       final Map<String, double> holidays = const {},
+      final Map<String, DailyReportProject> dailyReportProjects = const {},
       @TimeStampConverter() this.createdAt,
       @TimeStampConverter() this.updatedAt})
-      : _holidays = holidays;
+      : _holidays = holidays,
+        _dailyReportProjects = dailyReportProjects;
   factory _DailyReports.fromJson(Map<String, dynamic> json) =>
       _$DailyReportsFromJson(json);
 
@@ -190,6 +202,16 @@ class _DailyReports implements DailyReports {
     if (_holidays is EqualUnmodifiableMapView) return _holidays;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_holidays);
+  }
+
+  final Map<String, DailyReportProject> _dailyReportProjects;
+  @override
+  @JsonKey()
+  Map<String, DailyReportProject> get dailyReportProjects {
+    if (_dailyReportProjects is EqualUnmodifiableMapView)
+      return _dailyReportProjects;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_dailyReportProjects);
   }
 
   @override
@@ -228,6 +250,8 @@ class _DailyReports implements DailyReports {
             (identical(other.absentOrLeft, absentOrLeft) ||
                 other.absentOrLeft == absentOrLeft) &&
             const DeepCollectionEquality().equals(other._holidays, _holidays) &&
+            const DeepCollectionEquality()
+                .equals(other._dailyReportProjects, _dailyReportProjects) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -244,12 +268,13 @@ class _DailyReports implements DailyReports {
       hasSubstituteHoliday,
       absentOrLeft,
       const DeepCollectionEquality().hash(_holidays),
+      const DeepCollectionEquality().hash(_dailyReportProjects),
       createdAt,
       updatedAt);
 
   @override
   String toString() {
-    return 'DailyReports(docId: $docId, date: $date, isApproval: $isApproval, hasSubstituteHoliday: $hasSubstituteHoliday, absentOrLeft: $absentOrLeft, holidays: $holidays, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'DailyReports(docId: $docId, date: $date, isApproval: $isApproval, hasSubstituteHoliday: $hasSubstituteHoliday, absentOrLeft: $absentOrLeft, holidays: $holidays, dailyReportProjects: $dailyReportProjects, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -268,6 +293,7 @@ abstract mixin class _$DailyReportsCopyWith<$Res>
       bool? hasSubstituteHoliday,
       double absentOrLeft,
       Map<String, double> holidays,
+      Map<String, DailyReportProject> dailyReportProjects,
       @TimeStampConverter() DateTime? createdAt,
       @TimeStampConverter() DateTime? updatedAt});
 }
@@ -291,6 +317,7 @@ class __$DailyReportsCopyWithImpl<$Res>
     Object? hasSubstituteHoliday = freezed,
     Object? absentOrLeft = null,
     Object? holidays = null,
+    Object? dailyReportProjects = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -319,6 +346,10 @@ class __$DailyReportsCopyWithImpl<$Res>
           ? _self._holidays
           : holidays // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      dailyReportProjects: null == dailyReportProjects
+          ? _self._dailyReportProjects
+          : dailyReportProjects // ignore: cast_nullable_to_non_nullable
+              as Map<String, DailyReportProject>,
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
