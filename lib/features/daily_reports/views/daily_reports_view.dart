@@ -1,3 +1,4 @@
+import 'package:diary_report_sample/features/daily_reports/models/user_project.dart';
 import 'package:diary_report_sample/features/daily_reports/viewmodels/reports_providers.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/year_month_picker.dart';
 import 'package:diary_report_sample/utils/datetime_ex.dart';
@@ -11,6 +12,10 @@ class DailyReportsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedMonth = ref.watch(selectedMonthProvider);
     final reportsAsync = ref.watch(reportsStreamProvider(selectedMonth));
+
+    final reportsState = ref.watch(reportsNotifierProvider);
+    print(reportsState);
+    final reportsNotifier = ref.read(reportsNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -140,10 +145,16 @@ class DailyReportsView extends ConsumerWidget {
                           },
                           onDismissed: (_) {
                             // TODO: 日報削除処理
+                            final removedReport = reports[index];
+                            reports.removeAt(index);
+                            // データベースから削除
+                            reportsNotifier
+                                .createDailyReport(UserProject(docId: "aaa"));
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('日報を削除しました')),
                             );
                           },
+
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 16.0),

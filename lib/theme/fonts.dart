@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// フォント
 class BrandFont {
-  static const general = 'NotoSansJP';
+  static const general = 'MPlus1p';
 }
 
 /// 文字スタイル

@@ -1,4 +1,5 @@
 import 'package:diary_report_sample/theme/colors.dart';
+import 'package:diary_report_sample/theme/fonts.dart';
 import 'package:flutter/material.dart';
 
 class MyAppTheme {
@@ -6,7 +7,7 @@ class MyAppTheme {
 
   // ライトテーマ
   static final ThemeData lightTheme = ThemeData(
-    fontFamily: 'MPlus1p',
+    fontFamily: BrandFont.general,
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: BrandColor.seedColor,
@@ -21,7 +22,7 @@ class MyAppTheme {
 
   // ダークテーマ
   static final ThemeData darkTheme = ThemeData(
-    fontFamily: 'MPlus1p',
+    fontFamily: BrandFont.general,
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: BrandColor.seedColor,

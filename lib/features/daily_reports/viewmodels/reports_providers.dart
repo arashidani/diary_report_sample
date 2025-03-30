@@ -1,8 +1,8 @@
 import 'package:diary_report_sample/constants/database_constants.dart';
 import 'package:diary_report_sample/features/daily_reports/models/daily_reports.dart';
+import 'package:diary_report_sample/features/daily_reports/viewmodels/reports_notifier.dart';
 import 'package:diary_report_sample/providers/auth_state_provider.dart';
 import 'package:diary_report_sample/providers/firestore_client_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_client/firestore_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -52,24 +52,5 @@ final reportsStreamProvider = StreamProvider.autoDispose
   );
 });
 
-/// 単一の日報を取得するProvider
-final singleReportProvider =
-    StreamProvider.autoDispose.family<DailyReports?, String>(
-  (ref, reportId) {
-    final userAsync = ref.watch(authStateProvider);
-    final uid = userAsync.value?.uid;
-
-    if (uid == null) {
-      return Stream.value(null);
-    }
-
-    final firestoreClient = ref.watch(firestoreClientProvider);
-
-    return firestoreClient.watch<DailyReports>(
-      collectionPath:
-          '${DatabaseConstants.USERS}/$uid/${DatabaseConstants.DAILY_REPORTS}',
-      docId: reportId,
-      fromJson: (json) => DailyReports.fromJson(json),
-    );
-  },
-);
+final reportsNotifierProvider =
+    AsyncNotifierProvider<ReportsNotifier, void>(ReportsNotifier.new);

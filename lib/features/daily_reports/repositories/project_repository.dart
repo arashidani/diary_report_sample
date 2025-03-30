@@ -1,4 +1,4 @@
-// lib/features/projects/repositories/project_repository.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diary_report_sample/constants/database_constants.dart';
 import 'package:diary_report_sample/features/daily_reports/models/project.dart';
 import 'package:diary_report_sample/features/daily_reports/models/user_project.dart';
@@ -54,10 +54,32 @@ class ProjectRepository {
     );
   }
 
+  Future<DocumentReference<Object?>> create(project) async {
+    return await _firestoreClient.create<UserProject>(
+      collectionPath: DatabaseConstants.PROJECTS,
+      data: project,
+      toJson: (project) => project.toJson(),
+    );
+  }
+
+  Future<void> update(UserProject project) async {
+    return await _firestoreClient.update(
+      collectionPath: DatabaseConstants.PROJECTS,
+      docId: project.docId,
+      data: project,
+      toJson: (project) => project.toJson(),
+    );
+  }
+
   // ユーザーのプロジェクトを一覧から削除
   Future<void> deleteProject(String id) async {
+    print(
+      "${DatabaseConstants.USERS}/$_userId}/${DatabaseConstants.PROJECTS}/",
+    );
+    print(id);
     return await _firestoreClient.delete(
-      collectionPath: DatabaseConstants.PROJECTS,
+      collectionPath:
+          "${DatabaseConstants.USERS}/$_userId}/${DatabaseConstants.PROJECTS}/",
       docId: id,
     );
   }
