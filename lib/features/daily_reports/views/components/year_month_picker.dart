@@ -20,12 +20,7 @@ class YearMonthPicker extends ConsumerWidget {
     // 現在年から4年前までを選択可能に
     final currentYear = DateTime.now().year;
     final years = List.generate(4, (index) => currentYear - index);
-
-    // 月のリスト (1-12)
-    final months = List.generate(12, (index) => index + 1);
-
-    // 日報データを取得
-    final reportsAsync = ref.watch(reportsStreamProvider(selectedDate));
+    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     return Container(
       padding: const EdgeInsets.all(16.0),

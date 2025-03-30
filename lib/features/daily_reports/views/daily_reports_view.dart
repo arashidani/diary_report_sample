@@ -1,11 +1,5 @@
-// lib/features/daily_reports/views/daily_reports_view.dart
-import 'package:diary_report_sample/features/daily_reports/models/daily_reports.dart';
 import 'package:diary_report_sample/features/daily_reports/viewmodels/reports_providers.dart';
-import 'package:diary_report_sample/features/daily_reports/views/components/monthly_summary.dart';
-import 'package:diary_report_sample/features/daily_reports/views/components/report_edit_sheet.dart';
-import 'package:diary_report_sample/features/daily_reports/views/components/report_summary.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/year_month_picker.dart';
-import 'package:diary_report_sample/features/daily_reports/views/report_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -60,8 +54,8 @@ class DailyReportsView extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final report = reports[index];
                     return GestureDetector(
-                      onTap: () => _navigateToDetailPage(context, report),
-                      child: ReportSummary(report: report),
+                      onTap: () => {},
+                      child: Container(),
                     );
                   },
                 );
@@ -77,30 +71,7 @@ class DailyReportsView extends ConsumerWidget {
       floatingActionButton: ElevatedButton.icon(
         icon: const Icon(Icons.edit),
         label: const Text('追加'),
-        onPressed: () => _showAddReportSheet(context),
-      ),
-    );
-  }
-
-  void _showAddReportSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: const ReportsEditSheet(),
-      ),
-    );
-  }
-
-  void _navigateToDetailPage(BuildContext context, DailyReports report) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DailyReportDetailPage(
-          reportId: report.docId,
-        ),
+        onPressed: () => {},
       ),
     );
   }
