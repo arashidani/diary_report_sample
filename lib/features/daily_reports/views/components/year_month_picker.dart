@@ -17,9 +17,9 @@ class YearMonthPicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 現在年から5年前までを選択可能に
+    // 現在年から4年前までを選択可能に
     final currentYear = DateTime.now().year;
-    final years = List.generate(5, (index) => currentYear - index);
+    final years = List.generate(4, (index) => currentYear - index);
 
     // 月のリスト (1-12)
     final months = List.generate(12, (index) => index + 1);

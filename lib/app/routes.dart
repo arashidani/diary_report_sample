@@ -5,6 +5,7 @@ import 'package:diary_report_sample/features/auth/views/login_page.dart';
 import 'package:diary_report_sample/features/auth/views/profile_setup_page.dart';
 import 'package:diary_report_sample/features/auth/views/sign_up_page.dart';
 import 'package:diary_report_sample/features/daily_reports/views/daily_reports_view.dart';
+import 'package:diary_report_sample/features/daily_reports/views/report_detail_page.dart';
 import 'package:diary_report_sample/features/lincense/view/show_license_page.dart';
 import 'package:diary_report_sample/features/root/views/root_view.dart';
 import 'package:diary_report_sample/features/setting/views/setting_view.dart';
@@ -51,6 +52,7 @@ class Routes {
 
   // settingから遷移
   static const String licence = '/licence';
+  static const String dailyReportDetail = '/daily-report/:reportId';
 
   // 認証が必要なページ
   static const List<String> requiresAuth = [
@@ -59,6 +61,7 @@ class Routes {
     dailyReports,
     setting,
     licence,
+    dailyReportDetail,
   ];
 
   // ログインユーザーがアクセス不要なページ（ログイン後はリダイレクト）
@@ -111,6 +114,17 @@ class Routes {
           name: setting,
           pageBuilder: (context, state) =>
               noTransitionPageBuilder(const SettingView(), state),
+        ),
+        GoRoute(
+          path: '/daily-report/:reportId',
+          name: Routes.dailyReportDetail,
+          pageBuilder: (context, state) {
+            final reportId = state.pathParameters['reportId'] ?? '';
+            return noTransitionPageBuilder(
+              DailyReportDetailPage(reportId: reportId),
+              state,
+            );
+          },
         ),
         GoRoute(
           path: '/licence',
