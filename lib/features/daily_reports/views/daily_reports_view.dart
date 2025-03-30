@@ -3,7 +3,6 @@ import 'package:diary_report_sample/features/daily_reports/models/daily_reports.
 import 'package:diary_report_sample/features/daily_reports/viewmodels/reports_providers.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/monthly_summary.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/report_edit_sheet.dart';
-import 'package:diary_report_sample/features/daily_reports/views/components/report_list_tile.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/report_summary.dart';
 import 'package:diary_report_sample/features/daily_reports/views/components/year_month_picker.dart';
 import 'package:diary_report_sample/features/daily_reports/views/report_detail_page.dart';
@@ -30,15 +29,6 @@ class DailyReportsView extends ConsumerWidget {
             onChanged: (newDate) {
               ref.read(selectedMonthProvider.notifier).state = newDate;
             },
-          ),
-
-          // 月間サマリー（データがある場合のみ表示）
-          reportsAsync.maybeWhen(
-            data: (reports) {
-              if (reports.isEmpty) return const SizedBox.shrink();
-              return MonthlySummary(reports: reports);
-            },
-            orElse: () => const SizedBox.shrink(),
           ),
 
           // 日報リスト

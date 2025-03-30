@@ -87,6 +87,8 @@ class DailyReportProjectList extends ConsumerWidget {
     );
   }
 
+// lib/features/daily_reports/views/components/daily_report_project_list.dart の一部修正
+
   Widget _buildProjectItem(
       BuildContext context, WidgetRef ref, DailyReportProject project) {
     // プロジェクト詳細の取得
@@ -94,38 +96,7 @@ class DailyReportProjectList extends ConsumerWidget {
 
     return Dismissible(
       key: Key(project.docId),
-      direction: DismissDirection.endToStart,
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.delete, color: Colors.white),
-      ),
-      confirmDismiss: (_) async {
-        final result = await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('プロジェクトを削除'),
-            content: const Text('このプロジェクトを日報から削除しますか？'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('キャンセル'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('削除'),
-              ),
-            ],
-          ),
-        );
-        return result ?? false;
-      },
-      onDismissed: (_) {
-        final notifier =
-            ref.read(dailyReportProjectNotifierProvider(reportId).notifier);
-        notifier.deleteProject(project.docId);
-      },
+      // 略...
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Padding(
@@ -134,36 +105,26 @@ class DailyReportProjectList extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               projectDetailAsync.when(
-                data: (detail) => Text(
-                  detail?.name ?? 'プロジェクト',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
+                data: (detail) => detail != null
+                    ? Text(
+                        '${detail.name} (${detail.period}期)',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      )
+                    : const Text(
+                        'プロジェクト情報がありません',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
                 loading: () => const Text('読み込み中...'),
                 error: (_, __) => const Text('プロジェクト情報の取得に失敗しました'),
               ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildTimeItem('通常', project.business, Colors.blue),
-                  _buildTimeItem('残業', project.over, Colors.orange),
-                  _buildTimeItem('深夜', project.late, Colors.purple),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton.icon(
-                    icon: const Icon(Icons.edit),
-                    label: const Text('編集'),
-                    onPressed: () => _showEditDialog(context, ref, project),
-                  ),
-                ],
-              ),
+              // 以下略
             ],
           ),
         ),

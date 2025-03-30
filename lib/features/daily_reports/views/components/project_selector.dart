@@ -1,4 +1,5 @@
-// lib/features/daily_reports/views/components/project_selector.dart
+// lib/features/daily_reports/views/components/project_selector.dart の修正
+
 import 'package:diary_report_sample/features/daily_reports/models/daily_report_project.dart';
 import 'package:diary_report_sample/features/daily_reports/providers/daily_report_project_notifier.dart';
 import 'package:diary_report_sample/features/daily_reports/providers/project_provider.dart';
@@ -33,6 +34,7 @@ class _ProjectSelectorState extends ConsumerState<ProjectSelector> {
 
   @override
   Widget build(BuildContext context) {
+    // ユーザープロジェクト詳細情報を取得
     final userProjectsAsync = ref.watch(userProjectsWithDetailsProvider);
 
     return SingleChildScrollView(
@@ -78,7 +80,7 @@ class _ProjectSelectorState extends ConsumerState<ProjectSelector> {
                   items: projects.map((project) {
                     return DropdownMenuItem<String>(
                       value: project.docId,
-                      child: Text(project.name),
+                      child: Text('${project.name} (${project.period}期)'),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -177,6 +179,7 @@ class _ProjectSelectorState extends ConsumerState<ProjectSelector> {
       over: over,
       late: late,
       createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
 
     // 登録処理
